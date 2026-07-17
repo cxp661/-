@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>空间美学设计工作室</title>
+<style>
+/* ==================== RESET & BASE ==================== */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0d0d0d;--bg2:#141414;--bg3:#1a1a1a;--border:#222;
+  --gold:#c9a96e;--gold2:#d4a574;--gold3:#b8944a;--gold-dim:rgba(201,169,110,0.15);--gold-glow:rgba(201,169,110,0.08);
+  --terracotta:#c67b4b;--terracotta2:#a0522d;--warm-cream:#f5f0e8;--olive:#8b9a6b;--sienna:#8b4513;
+  --text:#ccc;--text2:#999;--text3:#666;--white:#f5f5f5;
+  --serif:'Noto Serif SC','STSong','SimSun','Songti SC',serif;
+  --sans:'Inter','PingFang SC','Microsoft YaHei','Helvetica Neue',sans-serif;
+  --radius:4px;--radius-lg:12px;--transition:0.4s cubic-bezier(0.25,0.1,0.25,1);
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.7;overflow-x:hidden;
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(198,123,75,0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(201,169,110,0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(139,154,107,0.03) 0%, transparent 50%);
+}
+a{color:var(--gold);text-decoration:none;transition:var(--transition)}
+a:hover{color:var(--gold2)}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:10px}
+::selection{background:var(--gold-dim);color:var(--gold)}
+
+/* ==================== NAV ==================== */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 40px;height:70px;
+  background:rgba(13,13,13,0.85);backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  display:flex;align-items:center;justify-content:space-between;transition:var(--transition)}
+nav.scrolled{height:60px;background:rgba(13,13,13,0.95);border-bottom:1px solid rgba(255,255,255,0.08)}
+.logo{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--white);letter-spacing:3px}
+.logo span{color:var(--gold)}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{color:var(--text2);font-size:13px;text-transform:uppercase;letter-spacing:1.5px;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:var(--transition)}
+.nav-links a:hover{color:var(--white)}
+.nav-links a:hover::after{width:100%}
+
+/* ==================== HERO ==================== */
+.hero{height:100vh;display:flex;align-items:center;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(201,169,110,0.06) 0%,transparent 60%),
+  radial-gradient(ellipse at 70% 30%,rgba(201,169,110,0.03) 0%,transparent 50%);z-index:0}
+.hero-content{max-width:1100px;margin:0 auto;padding:0 60px;position:relative;z-index:1}
+.hero-tag{font-size:12px;text-transform:uppercase;letter-spacing:6px;color:var(--gold);margin-bottom:24px}
+.hero h1{font-family:var(--serif);font-size:clamp(48px,7vw,88px);font-weight:400;color:var(--white);
+  line-height:1.15;letter-spacing:1px;margin-bottom:28px}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.hero p{font-size:17px;color:var(--text2);max-width:480px;line-height:1.8;margin-bottom:36px}
+.hero .btn{display:inline-block;padding:14px 36px;border:1px solid var(--gold);color:var(--gold);
+  font-size:13px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:var(--transition);
+  background:transparent;position:relative;overflow:hidden}
+.hero .btn:hover{background:var(--gold-dim);color:var(--gold2);border-color:var(--gold2)}
+.hero-scroll{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--text3);font-size:10px;letter-spacing:3px}
+.hero-scroll .line{width:1px;height:40px;background:linear-gradient(180deg,var(--gold),transparent)}
+
+/* ==================== SECTIONS ==================== */
+section{padding:100px 60px}
+.section-tag{font-size:11px;text-transform:uppercase;letter-spacing:5px;color:var(--gold);margin-bottom:16px}
+.section-title{font-family:var(--serif);font-size:clamp(32px,5vw,48px);color:var(--white);margin-bottom:60px;
+  font-weight:400;letter-spacing:1px}
+.section-title::before{content:'/ ';color:var(--gold);font-size:60%}
+
+/* ==================== PROJECT GRID ==================== */
+.project-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:4px}
+.project-card{position:relative;overflow:hidden;cursor:pointer;aspect-ratio:4/3;background:var(--bg2);
+  transition:var(--transition)}
+.project-card:hover{transform:translateY(-2px)}
+.project-card img{width:100%;height:100%;object-fit:cover;transition:0.8s cubic-bezier(0.25,0.1,0.25,1)}
+.project-card:hover img{transform:scale(1.05)}
+.project-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.85) 100%);
+  display:flex;flex-direction:column;justify-content:flex-end;padding:32px;opacity:0.9;transition:var(--transition)}
+.project-card:hover .project-overlay{opacity:1;background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,0.9) 100%)}
+.project-overlay .cat{font-size:10px;text-transform:uppercase;letter-spacing:3px;color:var(--gold);margin-bottom:8px}
+.project-overlay h3{font-family:var(--serif);font-size:22px;color:var(--white);font-weight:400;letter-spacing:1px;margin-bottom:4px}
+.project-overlay .meta{font-size:12px;color:var(--text3);letter-spacing:1px}
+
+/* ==================== ORNAMENTS & FLOURISHES ==================== */
+/* Decorative section divider */
+.ornament-divider{display:flex;align-items:center;justify-content:center;gap:16px;margin:20px 0 40px}
+.ornament-divider .line{width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.ornament-divider .diamond{width:8px;height:8px;border:1px solid var(--gold);transform:rotate(45deg);opacity:0.6}
+/* Italian ornamental corner */
+.ornament-corner{position:absolute;width:20px;height:20px;border-color:var(--gold);border-style:solid;opacity:0.3;transition:var(--transition)}
+.ornament-corner.tl{top:12px;left:12px;border-width:1px 0 0 1px}
+.ornament-corner.br{bottom:12px;right:12px;border-width:0 1px 1px 0}
+.project-card:hover .ornament-corner{opacity:0.7;width:30px;height:30px}
+/* Featured badge */
+.featured-badge{position:absolute;top:16px;right:16px;z-index:5;padding:6px 14px;background:rgba(198,123,75,0.9);
+  color:#fff;font-size:10px;letter-spacing:2px;text-transform:uppercase;border-radius:2px}
+/* Pattern dot background */
+.pattern-bg{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(201,169,110,0.06) 1px,transparent 1px);
+  background-size:24px 24px;pointer-events:none;z-index:0}
+/* Section number */
+.section-num{font-family:var(--serif);font-size:120px;color:rgba(201,169,110,0.03);
+  position:absolute;top:-40px;left:-20px;line-height:1;pointer-events:none}
+
+/* ==================== DESIGN PHILOSOPHY ==================== */
+.philosophy{background:linear-gradient(180deg,var(--bg) 0%,#0f0a05 50%,var(--bg) 100%);padding:120px 60px;text-align:center;position:relative;overflow:hidden}
+.philosophy::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:1px;height:100%;background:linear-gradient(180deg,transparent,var(--gold-dim),transparent)}
+.philosophy blockquote{max-width:700px;margin:0 auto;position:relative;z-index:1}
+.philosophy blockquote p{font-family:var(--serif);font-size:clamp(22px,3vw,32px);color:var(--white);line-height:1.8;font-weight:300}
+.philosophy blockquote footer{font-size:13px;color:var(--gold);letter-spacing:3px;margin-top:24px}
+.philosophy .quote-mark{font-size:120px;color:var(--gold-dim);line-height:1;position:absolute;top:-40px;left:-60px;font-family:Georgia,serif}
+/* ==================== SERVICES ==================== */
+.services-section{position:relative}
+.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:40px}
+.service-card{background:var(--bg2);padding:48px 32px;text-align:center;transition:var(--transition);position:relative;overflow:hidden;cursor:default}
+.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:var(--transition)}
+.service-card:hover{transform:translateY(-4px);background:var(--bg3)}
+.service-card:hover::before{opacity:1}
+.service-card .s-icon{font-size:40px;margin-bottom:20px;display:block}
+.service-card h4{font-family:var(--serif);font-size:18px;color:var(--white);margin-bottom:10px;font-weight:400;letter-spacing:1px}
+.service-card p{font-size:13px;color:var(--text3);line-height:1.8}
+/* ==================== PROCESS ==================== */
+.process-section{background:var(--bg2);position:relative;overflow:hidden}
+.process-steps{display:flex;justify-content:space-between;margin-top:60px;position:relative}
+.process-steps::before{content:'';position:absolute;top:40px;left:12%;right:12%;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),var(--gold-dim),transparent)}
+.process-step{text-align:center;flex:1;position:relative;z-index:1}
+.process-num{width:80px;height:80px;border-radius:50%;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-family:var(--serif);font-size:28px;color:var(--gold);background:var(--bg2);transition:var(--transition)}
+.process-step:hover .process-num{background:var(--gold-dim);transform:scale(1.1)}
+.process-step h5{font-size:15px;color:var(--white);margin-bottom:6px;letter-spacing:1px}
+.process-step span{font-size:12px;color:var(--text3);display:block}
+/* ==================== STATS BAR ==================== */
+.stats-bar{display:flex;justify-content:center;gap:80px;padding:60px 0;flex-wrap:wrap}
+.stat-item{text-align:center}
+.stat-item .stat-num{font-family:var(--serif);font-size:56px;color:var(--gold);font-weight:300;line-height:1}
+.stat-item .stat-label{font-size:12px;color:var(--text3);letter-spacing:2px;text-transform:uppercase;margin-top:8px}
+/* ==================== ABOUT ==================== */
+.about-section{background:var(--bg2)}
+.about-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.about-text h3{font-family:var(--serif);font-size:28px;color:var(--white);font-weight:400;
+  margin-bottom:24px;letter-spacing:1px}
+.about-text p{color:var(--text2);font-size:15px;line-height:2;margin-bottom:16px}
+.about-stats{display:flex;gap:48px;margin-top:36px}
+.stat h4{font-family:var(--serif);font-size:40px;color:var(--gold);font-weight:400}
+.stat span{font-size:12px;letter-spacing:2px;color:var(--text3);text-transform:uppercase}
+.about-image{aspect-ratio:3/4;background:var(--bg3);display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;border:1px solid var(--border)}
+.about-image::before{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;
+  border:1px solid var(--gold-dim);z-index:1}
+.about-image .placeholder{color:var(--text3);font-size:14px;letter-spacing:3px;z-index:0}
+.about-image img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2}
+
+/* ==================== LIGHTBOX ==================== */
+.lightbox{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.95);
+  display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:0.3s}
+.lightbox.active{opacity:1;pointer-events:auto}
+.lightbox-close{position:absolute;top:24px;right:24px;width:44px;height:44px;
+  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(--white);
+  font-size:20px;cursor:pointer;transition:var(--transition);display:flex;align-items:center;justify-content:center}
+.lightbox-close:hover{background:rgba(255,255,255,0.1)}
+.lightbox-content{max-width:85vw;max-height:85vh;position:relative}
+.lightbox-content img{max-width:85vw;max-height:85vh;object-fit:contain}
+.lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);
+  width:48px;height:48px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);
+  color:var(--white);font-size:18px;cursor:pointer;transition:var(--transition);
+  display:flex;align-items:center;justify-content:center}
+.lightbox-nav:hover{background:rgba(255,255,255,0.15)}
+.lightbox-prev{left:-60px}
+.lightbox-next{right:-60px}
+.lightbox-info{position:absolute;bottom:-48px;left:0;right:0;text-align:center;color:var(--text2);font-size:13px}
+
+/* ==================== PROJECT DETAIL ==================== */
+.detail-modal{position:fixed;inset:0;z-index:200;background:var(--bg);overflow-y:auto;
+  opacity:0;pointer-events:none;transition:0.3s}
+.detail-modal.active{opacity:1;pointer-events:auto}
+.detail-header{position:sticky;top:0;z-index:10;padding:16px 40px;background:rgba(13,13,13,0.9);
+  backdrop-filter:blur(20px);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between}
+.detail-header h3{font-family:var(--serif);font-size:20px;color:var(--white);font-weight:400}
+.detail-body{padding:40px 60px;max-width:1100px;margin:0 auto}
+.detail-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:4px;margin-top:32px}
+.detail-gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;cursor:pointer;transition:var(--transition)}
+.detail-gallery img:hover{opacity:0.8}
+.detail-meta{display:flex;flex-wrap:wrap;gap:32px;padding:24px 0;border-bottom:1px solid var(--border);margin-bottom:32px}
+.detail-meta dt{font-size:10px;text-transform:uppercase;letter-spacing:3px;color:var(--text3)}
+.detail-meta dd{font-size:14px;color:var(--text)}
+
+/* ==================== ADMIN PANEL ==================== */
+.admin{display:none;min-height:100vh;padding-top:70px}
+.admin.active{display:block}
+.admin-header{position:fixed;top:0;left:0;right:0;z-index:100;height:70px;padding:0 40px;
+  background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.admin-header h2{font-size:16px;color:var(--gold);letter-spacing:2px}
+.admin-header .btn-sm{padding:8px 20px;font-size:12px;letter-spacing:1px;
+  border:1px solid var(--border);background:transparent;color:var(--text);cursor:pointer;transition:var(--transition)}
+.admin-header .btn-sm:hover{border-color:var(--gold);color:var(--gold)}
+.admin-body{max-width:1200px;margin:0 auto;padding:40px}
+.admin-section{margin-bottom:40px}
+.admin-section h3{font-size:14px;color:var(--white);letter-spacing:2px;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+
+/* Project list */
+.project-list{display:flex;flex-direction:column;gap:8px}
+.project-row{display:flex;align-items:center;gap:16px;padding:16px;background:var(--bg2);border:1px solid var(--border);
+  transition:var(--transition);cursor:pointer}
+.project-row:hover{border-color:var(--gold-dim);background:var(--bg3)}
+.project-row .thumb{width:80px;height:60px;background:var(--bg3);flex-shrink:0;overflow:hidden}
+.project-row .thumb img{width:100%;height:100%;object-fit:cover}
+.project-row .info{flex:1}
+.project-row .info h4{font-size:15px;color:var(--white);margin-bottom:2px}
+.project-row .info span{font-size:12px;color:var(--text3)}
+.project-row .actions{display:flex;gap:8px}
+.btn-sm{padding:6px 14px;font-size:11px;letter-spacing:1px;border:1px solid var(--border);
+  background:transparent;color:var(--text2);cursor:pointer;transition:var(--transition);border-radius:var(--radius)}
+.btn-sm:hover{border-color:var(--gold);color:var(--gold)}
+.btn-sm.danger:hover{border-color:#c0392b;color:#e74c3c}
+.btn-sm.primary{background:var(--gold-dim);border-color:var(--gold);color:var(--gold)}
+.btn-sm.primary:hover{background:rgba(201,169,110,0.25)}
+
+/* Form */
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:11px;color:var(--text3);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:10px 14px;
+  background:var(--bg2);border:1px solid var(--border);color:var(--text);
+  font-family:var(--sans);font-size:14px;transition:var(--transition)}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{outline:none;border-color:var(--gold)}
+.form-group textarea{min-height:100px;resize:vertical}
+.form-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.checkbox-group{display:flex;align-items:center;gap:10px}
+.checkbox-group input[type="checkbox"]{width:auto;accent-color:var(--gold)}
+
+/* Upload area */
+.upload-area{border:2px dashed var(--border);padding:48px;text-align:center;cursor:pointer;transition:var(--transition)}
+.upload-area:hover{border-color:var(--gold);background:var(--gold-dim)}
+.upload-area p{color:var(--text3);font-size:13px;letter-spacing:1px}
+.upload-area .icon{font-size:32px;margin-bottom:12px}
+.image-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-top:16px}
+.image-grid .img-item{position:relative;aspect-ratio:4/3;background:var(--bg3);overflow:hidden}
+.image-grid .img-item img{width:100%;height:100%;object-fit:cover}
+.image-grid .img-item .del-btn{position:absolute;top:4px;right:4px;width:24px;height:24px;
+  background:rgba(0,0,0,0.7);color:#e74c3c;border:none;cursor:pointer;font-size:14px;transition:var(--transition);
+  display:flex;align-items:center;justify-content:center;opacity:0}
+.image-grid .img-item:hover .del-btn{opacity:1}
+
+/* Modal */
+.modal{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.8);
+  display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:0.3s}
+.modal.active{opacity:1;pointer-events:auto}
+.modal-content{background:var(--bg2);border:1px solid var(--border);width:90%;max-width:700px;
+  max-height:85vh;overflow-y:auto;padding:32px}
+.modal-content h3{font-size:16px;color:var(--white);letter-spacing:2px;margin-bottom:24px}
+
+/* Toast */
+.toast{position:fixed;bottom:40px;left:50%;transform:translateX(-50%);z-index:400;
+  background:var(--bg2);border:1px solid var(--gold);color:var(--gold);padding:12px 24px;
+  font-size:13px;letter-spacing:1px;opacity:0;pointer-events:none;transition:0.3s}
+.toast.show{opacity:1}
+
+/* Login */
+.login-overlay{position:fixed;inset:0;z-index:500;background:var(--bg);
+  display:flex;align-items:center;justify-content:center}
+.login-box{background:var(--bg2);border:1px solid var(--border);padding:48px;width:90%;max-width:400px;text-align:center}
+.login-box h2{font-family:var(--serif);font-size:24px;color:var(--white);margin-bottom:8px}
+.login-box p{color:var(--text3);font-size:13px;margin-bottom:24px}
+.login-box input{width:100%;padding:12px 16px;background:var(--bg);border:1px solid var(--border);
+  color:var(--text);text-align:center;font-size:14px;margin-bottom:12px}
+.login-box input:focus{outline:none;border-color:var(--gold)}
+.login-box .btn{width:100%;padding:12px;border:1px solid var(--gold);background:transparent;
+  color:var(--gold);font-size:13px;letter-spacing:2px;cursor:pointer;transition:var(--transition)}
+.login-box .btn:hover{background:var(--gold-dim)}
+.login-error{color:#e74c3c;font-size:12px;margin-top:8px;display:none}
+
+/* Loading */
+.loading{display:none;text-align:center;padding:48px;color:var(--text3);letter-spacing:2px}
+.loading.active{display:block}
+
+/* ==================== FEATURED SHOWCASE ==================== */
+.showcase{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:60px;min-height:500px}
+.showcase-main{position:relative;overflow:hidden;cursor:pointer;background:var(--bg2)}
+.showcase-main img{width:100%;height:100%;object-fit:cover;transition:0.8s ease}
+.showcase-main:hover img{transform:scale(1.03)}
+.showcase-main .show-info{position:absolute;bottom:0;left:0;right:0;padding:40px;
+  background:linear-gradient(transparent,rgba(0,0,0,0.9))}
+.showcase-main .show-info .tag{font-size:10px;letter-spacing:3px;color:var(--gold);text-transform:uppercase}
+.showcase-main .show-info h3{font-family:var(--serif);font-size:26px;color:var(--white);font-weight:400;margin:8px 0}
+.showcase-side{display:grid;grid-template-rows:1fr 1fr;gap:4px}
+.showcase-item{position:relative;overflow:hidden;cursor:pointer;background:var(--bg2)}
+.showcase-item img{width:100%;height:100%;object-fit:cover;transition:0.6s ease}
+.showcase-item:hover img{transform:scale(1.04)}
+.showcase-item .show-info{padding:24px;position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.85))}
+.showcase-item .show-info .tag{font-size:10px;letter-spacing:2px;color:var(--gold)}
+.showcase-item .show-info h4{font-family:var(--serif);font-size:16px;color:var(--white);font-weight:400;margin-top:4px}
+
+/* ==================== STYLE TAGS ==================== */
+.style-cloud{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:40px}
+.style-tag{padding:10px 24px;border:1px solid var(--border);color:var(--text2);font-size:12px;
+  letter-spacing:2px;transition:var(--transition);cursor:default;background:transparent}
+.style-tag:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-dim);transform:translateY(-2px)}
+
+/* ==================== TESTIMONIALS ==================== */
+.testimonials-section{background:linear-gradient(180deg,var(--bg) 0%,#0f0a05 100%);position:relative;overflow:hidden}
+.testimonial-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:40px}
+.testimonial-card{background:var(--bg2);padding:40px 32px;transition:var(--transition)}
+.testimonial-card:hover{background:var(--bg3)}
+.testimonial-card .t-quote{font-size:40px;color:var(--gold-dim);line-height:1;margin-bottom:16px}
+.testimonial-card p{font-size:14px;color:var(--text2);line-height:1.9;font-style:italic;margin-bottom:20px}
+.testimonial-card .t-author{font-size:13px;color:var(--white);letter-spacing:1px}
+.testimonial-card .t-project{font-size:11px;color:var(--text3);letter-spacing:1px;margin-top:4px}
+
+/* ==================== CTA BANNER ==================== */
+.cta-banner{margin:80px 0;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,rgba(201,169,110,0.08) 0%,rgba(198,123,75,0.06) 50%,rgba(201,169,110,0.08) 100%);
+  border:1px solid var(--border);padding:80px 60px;text-align:center}
+.cta-banner::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.cta-banner h2{font-family:var(--serif);font-size:clamp(28px,4vw,40px);color:var(--white);font-weight:400;margin-bottom:16px}
+.cta-banner p{color:var(--text2);font-size:15px;margin-bottom:32px}
+.cta-banner .btn-hero{display:inline-block;padding:16px 40px;border:1px solid var(--gold);color:var(--gold);
+  font-size:14px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:var(--transition);
+  background:transparent;position:relative;overflow:hidden}
+.cta-banner .btn-hero:hover{background:var(--gold-dim);color:var(--white);border-color:var(--gold2)}
+
+/* ==================== ENHANCED FOOTER ==================== */
+.rich-footer{padding:80px 60px 40px;background:var(--bg2);border-top:1px solid var(--border)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:60px;margin-bottom:60px}
+.footer-col h4{font-family:var(--serif);font-size:16px;color:var(--white);margin-bottom:20px;font-weight:400;letter-spacing:2px}
+.footer-col p,.footer-col a{font-size:13px;color:var(--text3);line-height:2;display:block}
+.footer-col a:hover{color:var(--gold)}
+.footer-bottom{padding-top:32px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;
+  font-size:11px;color:var(--text3);letter-spacing:1px}
+
+/* ==================== PARALLAX DIVIDER ==================== */
+.parallax-divider{height:300px;background:fixed center/cover no-repeat;
+  background-image:linear-gradient(rgba(0,0,0,0.65),rgba(0,0,0,0.65));
+  display:flex;align-items:center;justify-content:center;position:relative}
+.parallax-divider .inner{text-align:center;z-index:1}
+.parallax-divider .inner h3{font-family:var(--serif);font-size:28px;color:var(--white);font-weight:300;letter-spacing:3px}
+
+/* ==================== FAQ ==================== */
+.faq-list{max-width:700px;margin:40px auto 0}
+.faq-item{border-bottom:1px solid var(--border);overflow:hidden}
+.faq-q{width:100%;padding:24px 0;background:none;border:none;color:var(--white);font-size:15px;
+  cursor:pointer;text-align:left;display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--sans);letter-spacing:1px;transition:var(--transition)}
+.faq-q:hover{color:var(--gold)}
+.faq-q .arrow{font-size:20px;color:var(--gold);transition:0.3s;display:inline-block}
+.faq-q.open .arrow{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height 0.4s ease,padding 0.4s ease}
+.faq-a.open{max-height:200px;padding-bottom:20px}
+.faq-a p{font-size:14px;color:var(--text2);line-height:1.9}
+
+/* ==================== INSIGHTS ==================== */
+.insights-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:40px}
+.insight-card{background:var(--bg2);overflow:hidden;transition:var(--transition);cursor:default}
+.insight-card:hover{background:var(--bg3);transform:translateY(-2px)}
+.insight-card .insight-img{height:180px;background:var(--bg3);overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:40px}
+.insight-card .insight-body{padding:28px}
+.insight-card .insight-date{font-size:10px;letter-spacing:2px;color:var(--gold);text-transform:uppercase}
+.insight-card h4{font-family:var(--serif);font-size:17px;color:var(--white);font-weight:400;margin:10px 0;line-height:1.5}
+.insight-card p{font-size:13px;color:var(--text3);line-height:1.8}
+
+/* ==================== BRANDS ==================== */
+.brands-row{display:flex;justify-content:center;align-items:center;gap:48px;flex-wrap:wrap;margin-top:40px}
+.brand-item{color:var(--text3);font-size:14px;letter-spacing:3px;transition:var(--transition);text-align:center}
+.brand-item:hover{color:var(--gold)}
+.brand-item .b-icon{font-size:28px;display:block;margin-bottom:8px}
+
+/* ==================== FLOATING BUTTONS ==================== */
+.float-top{position:fixed;bottom:32px;right:32px;width:44px;height:44px;
+  background:var(--bg2);border:1px solid var(--gold);color:var(--gold);
+  cursor:pointer;z-index:99;font-size:18px;display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:0.3s}
+.float-top.show{opacity:1;pointer-events:auto}
+.float-top:hover{background:var(--gold-dim)}
+.float-consult{position:fixed;bottom:90px;right:32px;z-index:99;
+  background:var(--gold);color:var(--bg);padding:10px 20px;
+  font-size:13px;letter-spacing:2px;cursor:pointer;text-decoration:none;
+  box-shadow:0 4px 20px rgba(201,169,110,0.3);transition:0.3s}
+.float-consult:hover{transform:translateY(-2px);box-shadow:0 6px 30px rgba(201,169,110,0.5)}
+
+/* ==================== ANIMATIONS ==================== */
+.fade-in{opacity:0;transform:translateY(30px);transition:opacity 0.8s ease,transform 0.8s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* Responsive */
+@media(max-width:768px){
+  nav{padding:0 20px}.nav-links{display:none}
+  .hero-content{padding:0 24px}.hero h1{font-size:36px}
+  section{padding:60px 24px}
+  .project-grid{grid-template-columns:1fr}
+  .services-grid{grid-template-columns:repeat(2,1fr)}
+  .process-steps{flex-direction:column;gap:32px}
+  .process-steps::before{display:none}
+  .stats-bar{gap:32px}
+  .stat-item .stat-num{font-size:36px}
+  .showcase{grid-template-columns:1fr;min-height:auto}
+  .testimonial-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr;gap:32px}
+  .cta-banner{padding:48px 24px}
+  .insights-grid{grid-template-columns:1fr}
+  .parallax-divider{height:200px}
+  .faq-list{max-width:100%}
+  .float-consult{bottom:80px;right:16px;padding:8px 16px;font-size:11px}
+  .about-inner{grid-template-columns:1fr;gap:40px}
+  .detail-body{padding:24px}.detail-meta{gap:16px}
+  .form-row{grid-template-columns:1fr}
+  .admin-body{padding:20px}
+  .lightbox-prev{left:10px}.lightbox-next{right:10px}
+}
+@media(max-width:480px){
+  .hero h1{font-size:28px}.section-title{font-size:24px}
+  .project-grid{grid-template-columns:1fr}
+  .about-stats{gap:24px}.stat h4{font-size:28px}
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== NAVIGATION ==================== -->
+<nav id="mainNav">
+  <a href="/" class="logo"><span>/</span> STUDIO</a>
+  <ul class="nav-links">
+    <li><a href="#works">作品</a></li>
+    <li><a href="#services">服务</a></li>
+    <li><a href="#about">关于</a></li>
+    <li><a href="#contact">联系</a></li>
+  </ul>
+</nav>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero" id="home" style="position:relative">
+  <div class="hero-bg"></div>
+  <div class="pattern-bg"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Interior Design Studio</div>
+    <h1 id="heroTitle">设计<em>空间</em><br>更是设计<em>生活</em></h1>
+    <p id="heroDesc">专注于高端住宅与商业空间设计，用设计语言诠释生活美学。每一个空间都是一次独特的叙事。</p>
+    <a href="#works" class="btn">探索作品 →</a>
+  </div>
+  <div class="hero-scroll">
+    <span>SCROLL</span>
+    <div class="line"></div>
+  </div>
+</section>
+
+<!-- ==================== WORKS ==================== -->
+<section id="works" style="position:relative">
+  <div class="section-tag">Selected Projects</div>
+  <h2 class="section-title">精选作品</h2>
+  <div class="ornament-divider"><div class="line"></div><div class="diamond"></div><div class="line"></div></div>
+  <div id="categoryFilter" style="display:flex;gap:16px;margin-bottom:40px;flex-wrap:wrap"></div>
+  <div class="project-grid" id="projectGrid"></div>
+  <div class="loading" id="loading">加载中...</div>
+</section>
+
+<!-- ==================== FEATURED SHOWCASE ==================== -->
+<div id="featuredShowcase" style="max-width:1100px;margin:0 auto;padding:40px 60px 0">
+  <div class="section-tag fade-in">Featured</div>
+  <h2 class="section-title fade-in" style="margin-bottom:20px">精选案例</h2>
+  <div class="ornament-divider fade-in"><div class="line"></div><div class="diamond"></div><div class="line"></div></div>
+  <div class="showcase" id="showcaseGrid"></div>
+</div>
+
+<!-- ==================== STYLE TAGS ==================== -->
+<section style="padding:60px;text-align:center">
+  <div class="section-tag fade-in">Style Spectrum</div>
+  <h2 class="section-title fade-in" style="text-align:center">擅长风格</h2>
+  <div class="ornament-divider fade-in"><div class="line"></div><div class="diamond"></div><div class="line"></div></div>
+  <div class="style-cloud fade-in">
+    <span class="style-tag">托斯卡纳</span>
+    <span class="style-tag">现代简约</span>
+    <span class="style-tag">新中式</span>
+    <span class="style-tag">轻法式</span>
+    <span class="style-tag">侘寂风</span>
+    <span class="style-tag">意式轻奢</span>
+    <span class="style-tag">日式禅意</span>
+    <span class="style-tag">北欧极简</span>
+    <span class="style-tag">美式复古</span>
+    <span class="style-tag">Art Deco</span>
+    <span class="style-tag">工业风</span>
+    <span class="style-tag">地中海</span>
+  </div>
+</section>
+
+<!-- ==================== DESIGN PHILOSOPHY ==================== -->
+<section class="philosophy">
+  <div class="quote-mark" style="top:20px;left:10%">"</div>
+  <div class="quote-mark" style="bottom:20px;right:10%;top:auto;left:auto">"</div>
+  <blockquote>
+    <p>好的设计不是堆砌昂贵的材料，<br>而是读懂空间的语言，<br>让每一个角落都有温度、有故事、有生活的痕迹。</p>
+    <footer>—— 设计理念</footer>
+  </blockquote>
+</section>
+
+<!-- ==================== SERVICES ==================== -->
+<section class="services-section" id="services" style="position:relative">
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="section-tag fade-in">What We Do</div>
+    <h2 class="section-title fade-in">设计服务</h2>
+    <div class="ornament-divider fade-in"><div class="line"></div><div class="diamond"></div><div class="line"></div></div>
+    <div class="services-grid">
+      <div class="service-card fade-in">
+        <span class="s-icon">🏠</span>
+        <h4>住宅空间设计</h4>
+        <p>平层 · 别墅 · 复式<br>从空间规划到软装落地<br>全案托管，拎包入住</p>
+      </div>
+      <div class="service-card fade-in">
+        <span class="s-icon">🏢</span>
+        <h4>商业空间设计</h4>
+        <p>餐饮 · 办公 · 零售<br>品牌空间体验设计<br>提升商业价值与用户体验</p>
+      </div>
+      <div class="service-card fade-in">
+        <span class="s-icon">🛋️</span>
+        <h4>软装设计与陈设</h4>
+        <p>家具 · 布艺 · 饰品 · 灯光<br>全球品牌直采<br>打造有温度的空间氛围</p>
+      </div>
+      <div class="service-card fade-in">
+        <span class="s-icon">📐</span>
+        <h4>设计咨询与监理</h4>
+        <p>户型分析 · 预算规划<br>施工图纸深化 · 工程监理<br>让设计完美落地</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== STATS ==================== -->
+<section style="padding:0 60px">
+  <div class="stats-bar fade-in">
+    <div class="stat-item">
+      <div class="stat-num" id="statProjects2">0</div>
+      <div class="stat-label">完成项目</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">15+</div>
+      <div class="stat-label">服务城市</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" id="statClients2">0</div>
+      <div class="stat-label">满意客户</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">项目落地率</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PROCESS ==================== -->
+<section class="process-section">
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="section-tag fade-in">How We Work</div>
+    <h2 class="section-title fade-in">设计流程</h2>
+    <div class="ornament-divider fade-in"><div class="line"></div><div class="diamond"></div><div class="line"></div></div>
+    <div class="process-steps">
+      <div class="process-step fade-in">
+        <div class="process-num">01</div>
+        <h5>需求沟通</h5>
+        <span>深入了解生活方式<br>与审美偏好</span>
+      </div>
+      <div class="process-step fade-in">
+        <div class="process-num">02</div>
+        <h5>概念方案</h5>
+        <span>平面布局 + 风格定位<br>2-3版方案对比</span>
+      </div>
+      <div class="process-step fade-in">
+        <div class="process-num">03</div>
+        <h5>深化设计</h5>
+        <span>效果图 + 施工图<br>材料选样与确认</span>
+      </div>
+      <div class="process-step fade-in">
+        <div class="process-num">04</div>
+        <h5>施工落地</h5>
+        <span>工程跟踪 + 软装摆场<br>完美交付</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ABOUT ==================== -->
+<section class="about-section" id="about">
+  <div class="about-inner">
+    <div class="about-image">
+      <div class="placeholder">PORTRAIT</div>
+      <img id="aboutImg" src="" alt="" style="display:none">
+    </div>
+    <div class="about-text">
+      <div class="section-tag">About</div>
+      <h3 id="aboutName">室内设计师</h3>
+      <p id="aboutDesc">专注于高端住宅与商业空间设计，用设计语言诠释生活美学。每一个空间都是一次独特的叙事。</p>
+      <div class="about-stats">
+        <div class="stat"><h4 id="statProjects">0</h4><span>完成项目</span></div>
+        <div class="stat"><h4 id="statYears">0</h4><span>从业年限</span></div>
+        <div class="stat"><h4 id="statClients">0</h4><span>满意客户</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PARALLAX DIVIDER ==================== -->
+<div class="parallax-divider">
+  <div class="inner">
+    <h3>用设计，为生活写诗</h3>
+  </div>
+</div>
+
+<!-- ==================== INSIGHTS ==================== -->
+<section style="position:relative">
+  <div class="section-tag fade-in">Design Insights</div>
+  <h2 class="section-title fade-in">设计洞察</h2>
+  <div class="ornament-divider fade-in"><div class="line"></div><div class="diamond"></div><div class="line"></div></div>
+  <div class="insights-grid">
+    <div class="insight-card fade-in">
+      <div class="insight-img">🏛️</div>
+      <div class="insight-body">
+        <div class="insight-date">2026 / 07</div>
+        <h4>托斯卡纳风格为什么越来越受欢迎？</h4>
+        <p>在快节奏的都市生活中，托斯卡纳风格用温暖的大地色系、手工质感的材质和自然的拱形语言，为现代人提供了一个可以放慢呼吸的空间。</p>
+      </div>
+    </div>
+    <div class="insight-card fade-in">
+      <div class="insight-img">📐</div>
+      <div class="insight-body">
+        <div class="insight-date">2026 / 06</div>
+        <h4>小户型如何做到大宅的空间感？</h4>
+        <p>98㎡也能拥有别墅的气场。关键在于动线规划、视线通廊的营造，以及「留白」的勇气——好的设计不是填满，而是恰到好处的呼吸。</p>
+      </div>
+    </div>
+    <div class="insight-card fade-in">
+      <div class="insight-img">🎨</div>
+      <div class="insight-body">
+        <div class="insight-date">2026 / 05</div>
+        <h4>2026 室内设计趋势：回归自然材质</h4>
+        <p>洞石、赤陶、原木、手工抹灰墙——越来越多的高端住宅开始抛弃冰冷的工业材料，转向有温度、会呼吸的自然材质。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== BRANDS ==================== -->
+<section style="padding:60px;text-align:center;background:var(--bg2)">
+  <div class="section-tag fade-in">Partners</div>
+  <h2 class="section-title fade-in" style="text-align:center;margin-bottom:32px">合作品牌</h2>
+  <div class="brands-row fade-in">
+    <div class="brand-item"><span class="b-icon">🪑</span>Poliform</div>
+    <div class="brand-item"><span class="b-icon">💡</span>Flos</div>
+    <div class="brand-item"><span class="b-icon">🛋️</span>B&B Italia</div>
+    <div class="brand-item"><span class="b-icon">🧱</span>Imola</div>
+    <div class="brand-item"><span class="b-icon">🪟</span>YKK AP</div>
+    <div class="brand-item"><span class="b-icon">🎨</span>Benjamin Moore</div>
+    <div class="brand-item"><span class="b-icon">🔧</span>Blum</div>
+    <div class="brand-item"><span class="b-icon">🪵</span>Listone Giordano</div>
+  </div>
+</section>
+
+<!-- ==================== FAQ ==================== -->
+<section style="position:relative">
+  <div class="section-tag fade-in">FAQ</div>
+  <h2 class="section-title fade-in">常见问题</h2>
+  <div class="ornament-divider fade-in"><div class="line"></div><div class="diamond"></div><div class="line"></div></div>
+  <div class="faq-list fade-in">
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFAQ(this)">设计费如何计算？<span class="arrow">+</span></button>
+      <div class="faq-a"><p>设计费根据项目面积和设计深度计算，住宅设计费 ￥200-500/㎡不等，含平面方案、效果图、施工图和全程跟踪服务。具体报价在免费量房后出具。</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFAQ(this)">全案设计包含哪些内容？<span class="arrow">+</span></button>
+      <div class="faq-a"><p>包含空间规划、风格定位、效果图、全套施工图、材料清单、软装方案及采购清单。施工阶段提供不少于 8 次现场跟踪服务，确保设计完美落地。</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFAQ(this)">设计周期一般多长？<span class="arrow">+</span></button>
+      <div class="faq-a"><p>概念方案约 7-10 天，深化设计（含效果图+施工图）约 15-20 天。整体设计周期约 30 天。施工周期根据项目规模和复杂程度而定，一般 3-6 个月。</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFAQ(this)">可以只做设计不施工吗？<span class="arrow">+</span></button>
+      <div class="faq-a"><p>当然可以。我们提供纯设计服务，也可以推荐合作施工团队。但我们强烈建议由设计师全程跟踪关键节点，这是保证落地效果的关键。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TESTIMONIALS ==================== -->
+<section class="testimonials-section" style="position:relative">
+  <div class="pattern-bg"></div>
+  <div style="max-width:1100px;margin:0 auto;position:relative;z-index:1">
+    <div class="section-tag fade-in">Testimonials</div>
+    <h2 class="section-title fade-in">客户心声</h2>
+    <div class="ornament-divider fade-in"><div class="line"></div><div class="diamond"></div><div class="line"></div></div>
+    <div class="testimonial-grid">
+      <div class="testimonial-card fade-in">
+        <div class="t-quote">"</div>
+        <p>设计师非常用心，从量房到方案汇报到施工全程跟踪。把我对托斯卡纳的向往完美变成了现实，每个来家里的朋友都夸有品位。</p>
+        <div class="t-author">张女士</div>
+        <div class="t-project">托斯卡纳艳阳下 · 独栋别墅业主</div>
+      </div>
+      <div class="testimonial-card fade-in">
+        <div class="t-quote">"</div>
+        <p>98㎡的小户型能做到这个效果，完全超出预期。设计师没有因为面积小就敷衍，反而花了更多心思在空间利用上。真正的专业。</p>
+        <div class="t-author">李先生</div>
+        <div class="t-project">托斯卡纳新语 · 小户型业主</div>
+      </div>
+      <div class="testimonial-card fade-in">
+        <div class="t-quote">"</div>
+        <p>从方案到落地一气呵成，最让我感动的是设计师连餐具、香氛这些细节都帮我配好了。这才是真正的全案设计。</p>
+        <div class="t-author">王女士</div>
+        <div class="t-project">翡冷翠之夜 · 大平层业主</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CTA ==================== -->
+<section style="padding:40px 60px">
+  <div class="cta-banner fade-in">
+    <h2>开始您的空间美学之旅</h2>
+    <p>每一个空间都值得被认真对待。让我们坐下来聊聊您的家。</p>
+    <a href="#contact" class="btn-hero">预约设计咨询 →</a>
+  </div>
+</section>
+
+<!-- ==================== CONTACT ==================== -->
+<section id="contact" style="text-align:center">
+  <div class="section-tag">Contact</div>
+  <h2 class="section-title">联系我们</h2>
+  <p style="color:var(--text2);max-width:500px;margin:0 auto 40px">
+    如果您有设计需求，欢迎随时联系我们<br>每一个空间都值得被认真对待
+  </p>
+  <div id="contactInfo" style="display:flex;justify-content:center;gap:48px;flex-wrap:wrap;color:var(--text2);font-size:14px"></div>
+  <div style="margin-top:40px" class="fade-in">
+    <p style="color:var(--text3);font-size:12px;letter-spacing:2px;margin-bottom:16px">微信扫码添加好友</p>
+    <img src="images/wechat-qr.jpg" alt="微信二维码" style="width:180px;height:180px;border:2px solid var(--border);border-radius:var(--radius-lg);padding:8px;background:#fff" onerror="this.style.display='none'">
+  </div>
+</section>
+
+<!-- ==================== FLOATING BUTTONS ==================== -->
+<a href="#contact" class="float-consult">💬 预约设计</a>
+<button class="float-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到顶部">↑</button>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="rich-footer">
+  <div class="footer-grid" style="max-width:1100px;margin:0 auto 60px">
+    <div class="footer-col">
+      <h4>空间美学设计工作室</h4>
+      <p>专注于高端住宅与商业空间设计，以托斯卡纳风格为核心竞争力，同时涵盖现代简约、新中式、轻法式等多种风格。致力于为每一位客户打造有温度、有故事的空间。</p>
+    </div>
+    <div class="footer-col">
+      <h4>快速导航</h4>
+      <a href="#works">精选作品</a>
+      <a href="#services">设计服务</a>
+      <a href="#about">关于我们</a>
+      <a href="#contact">联系方式</a>
+    </div>
+    <div class="footer-col">
+      <h4>联系我们</h4>
+      <p id="footerPhone"></p>
+      <p id="footerWechat"></p>
+      <p id="footerEmail"></p>
+    </div>
+  </div>
+  <div class="footer-bottom" style="max-width:1100px;margin:0 auto">
+    <span>&copy; 2026 空间美学设计工作室 · 保留所有权利</span>
+    <span style="color:var(--gold)">Made with ♥ by 小花</span>
+  </div>
+</footer>
+
+<!-- ==================== LIGHTBOX ==================== -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <button class="lightbox-nav lightbox-prev" onclick="lightboxNav(-1)">←</button>
+  <div class="lightbox-content"><img id="lightboxImg" src="" alt=""></div>
+  <button class="lightbox-nav lightbox-next" onclick="lightboxNav(1)">→</button>
+  <div class="lightbox-info" id="lightboxInfo"></div>
+</div>
+
+<!-- ==================== PROJECT DETAIL MODAL ==================== -->
+<div class="detail-modal" id="detailModal">
+  <div class="detail-header">
+    <h3 id="detailTitle"></h3>
+    <button class="btn-sm" onclick="closeDetail()">关 闭</button>
+  </div>
+  <div class="detail-body" id="detailBody"></div>
+</div>
+
+<!-- ==================== ADMIN PANEL ==================== -->
+<div class="admin" id="adminPanel">
+  <div class="admin-header">
+    <h2>⚙️ 管理后台</h2>
+    <div style="display:flex;gap:12px">
+      <button class="btn-sm" onclick="openProjectModal()">+ 新建项目</button>
+      <button class="btn-sm" onclick="openSettingsModal()">设 置</button>
+      <button class="btn-sm" onclick="logout()">退出后台</button>
+    </div>
+  </div>
+  <div class="admin-body">
+    <div class="admin-section">
+      <h3>项目管理</h3>
+      <div class="project-list" id="adminProjectList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== ADMIN MODALS ==================== -->
+<!-- Project Edit Modal -->
+<div class="modal" id="projectModal">
+  <div class="modal-content">
+    <h3 id="projectModalTitle">新建项目</h3>
+    <p style="font-size:12px;color:var(--text3);margin-bottom:20px">⭐ 先填写项目信息并保存，然后上传效果图</p>
+
+    <div class="form-group"><label>项目名称 *</label><input id="projTitle" placeholder="例如：万科城市花园现代简约风"></div>
+    <div class="form-row">
+      <div class="form-group"><label>分类</label><select id="projCategory"><option>住宅设计</option><option>商业空间</option><option>办公空间</option><option>餐饮空间</option><option>酒店民宿</option><option>软装设计</option><option>其他</option></select></div>
+      <div class="form-group"><label>风格</label><input id="projStyle" placeholder="现代简约/新中式/轻法式..."></div>
+      <div class="form-group"><label>年份</label><input id="projYear" type="number" placeholder="2026"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>位置</label><input id="projLocation" placeholder="项目地址"></div>
+      <div class="form-group"><label>面积</label><input id="projArea" placeholder="120㎡"></div>
+    </div>
+    <div class="form-group"><label>项目链接（选填，如小红书/公众号/视频链接）</label><input id="projLink" placeholder="https://... 客户可通过此链接查看更多内容"></div>
+    <div class="form-group"><label>项目描述</label><textarea id="projDesc" placeholder="描述项目的设计理念、亮点、客户需求解决方案..."></textarea></div>
+    <div class="form-group">
+      <label class="checkbox-group"><input type="checkbox" id="projFeatured"><span>精选项目（显示在首页显著位置）</span></label>
+    </div>
+
+    <!-- Save first button -->
+    <div style="margin:20px 0;padding:16px;background:var(--gold-dim);border:1px solid var(--gold);border-radius:var(--radius);text-align:center">
+      <p style="font-size:13px;color:var(--gold);margin-bottom:10px">👇 第一步：保存项目信息</p>
+      <button class="btn-sm primary" id="saveProjectBtn" onclick="saveProject()" style="font-size:14px;padding:10px 32px">💾 保存项目</button>
+      <span id="saveHint" style="display:block;margin-top:8px;font-size:11px;color:var(--text3)">保存后即可上传效果图</span>
+    </div>
+
+    <!-- Upload section - always visible, but locked until saved -->
+    <div id="uploadSection">
+      <label>🖼️ 效果图管理 <span id="uploadStatus" style="color:var(--text3);font-size:11px">（请先保存项目）</span></label>
+      <div class="upload-area" id="uploadArea" style="opacity:0.5;pointer-events:none">
+        <div class="icon">📁</div>
+        <p>点击或拖拽上传效果图（支持 JPG/PNG/WebP）</p>
+        <p style="font-size:11px;color:var(--text3);margin-top:6px">建议尺寸 1600×1200 以上，单张不超过 50MB</p>
+        <input type="file" id="fileInput" multiple accept=".jpg,.jpeg,.png,.webp,.bmp" style="display:none">
+      </div>
+      <!-- Upload progress -->
+      <div id="uploadProgress" style="display:none;margin-top:12px;padding:12px;background:var(--bg3);border-radius:var(--radius)">
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+          <span style="font-size:12px;color:var(--text2)">上传中...</span>
+          <span id="uploadPercent" style="font-size:12px;color:var(--gold)">0%</span>
+        </div>
+        <div style="height:4px;background:var(--border);border-radius:2px;overflow:hidden">
+          <div id="uploadBar" style="height:100%;background:var(--gold);width:0%;transition:width 0.3s"></div>
+        </div>
+      </div>
+      <div class="image-grid" id="imageGrid"></div>
+    </div>
+
+    <div style="display:flex;gap:12px;margin-top:24px">
+      <button class="btn-sm" onclick="closeModal('projectModal')">关 闭</button>
+      <button class="btn-sm danger" id="deleteProjectBtn" style="display:none;margin-left:auto" onclick="deleteProject()">🗑️ 删除项目</button>
+    </div>
+  </div>
+</div>
+
+<!-- Settings Modal -->
+<div class="modal" id="settingsModal">
+  <div class="modal-content">
+    <h3>网站设置</h3>
+    <div class="form-group"><label>设计师名称</label><input id="setName"></div>
+    <div class="form-group"><label>工作室名称</label><input id="setTitle"></div>
+    <div class="form-group"><label>个人简介</label><textarea id="setAbout"></textarea></div>
+    <div class="form-group"><label>联系电话</label><input id="setPhone"></div>
+    <div class="form-group"><label>微信</label><input id="setWechat"></div>
+    <div class="form-group"><label>邮箱</label><input id="setEmail"></div>
+    <div class="form-group"><label>地址</label><input id="setAddress"></div>
+    <div class="form-group"><label>从业年限</label><input id="setYearExp" type="number"></div>
+    <hr style="border-color:var(--border);margin:20px 0">
+    <div class="form-group"><label>修改密码</label><input id="setPassword" type="password" placeholder="留空不修改"></div>
+    <div style="display:flex;gap:12px;margin-top:24px">
+      <button class="btn-sm primary" onclick="saveSettings()">保存设置</button>
+      <button class="btn-sm" onclick="closeModal('settingsModal')">取 消</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- ==================== SCRIPTS ==================== -->
+<script>
+// ==================== STATE ====================
+
+// ===== EMBEDDED DATA (Generated for GitHub Pages) =====
+const EMBEDDED_PROJECTS = [{"id":"3e825ded12253e43","title":"托斯卡纳艳阳下 — 独栋别墅","category":"住宅设计","description":"灵感源自意大利托斯卡纳乡村庄园。整案以暖陶土色为主基调，搭配手工赤陶地砖、粗粝质感的米黄色洞石墙面、原木天花梁架，营造出沐浴在艳阳下的意式田园生活美学。客厅挑空区域设置手凿石材壁炉作为视觉核心，厨房采用开放式格局搭配中岛，庭院的拱形落地窗将户外橄榄树景引入室内。","location":"杭州 · 绿城桃花源","area":"480㎡","style":"托斯卡纳风格","year":2025,"featured":true,"order":1,"link":"","images":[],"createdAt":"2026-07-16T00:00:00.000Z","updatedAt":"2026-07-16T00:00:00.000Z"},{"id":"2e467bad8ce4aa78","title":"翡冷翠之夜 — 大平层私宅","category":"住宅设计","description":"以佛罗伦萨文艺复兴为精神内核，融合托斯卡纳乡土材质与现代极简线条。全屋以大地色系贯穿：锡耶纳黄的肌理漆墙面、深胡桃木定制家具、黑色锻铁装饰细节。主卧套房设有拱形天花与手绘壁画，卫浴空间采用马赛克拼花与大理石双台盆。灯光设计模拟托斯卡纳黄昏的暖金色调，营造静谧优雅的居住氛围。","location":"上海 · 翠湖天地","area":"320㎡","style":"托斯卡纳风格","year":2025,"featured":true,"order":2,"link":"","images":[],"createdAt":"2026-07-16T00:00:00.000Z","updatedAt":"2026-07-16T00:00:00.000Z"},{"id":"e579f26b6c0b4731","title":"田园诗 — 郊外度假别墅","category":"酒店民宿","description":"一座回归自然的托斯卡纳风度假别墅。建筑设计采用当地石材干挂外墙，赤陶瓦屋顶，内部保留原始木梁结构。空间规划强调室内外融合：可完全打开的折叠玻璃门将客厅延伸至橄榄树庭院，户外设有石砌泳池与披萨烤炉。室内软装选用意大利手工陶器、亚麻织物与古董家具，每间客房都可观赏托斯卡纳丘陵日落。","location":"莫干山 · 裸心谷","area":"580㎡","style":"托斯卡纳风格","year":2024,"featured":true,"order":3,"link":"","images":[],"createdAt":"2026-07-16T00:00:00.000Z","updatedAt":"2026-07-16T00:00:00.000Z"},{"id":"dabb64e0abd488b1","title":"基安蒂山谷 — 联排别墅改造","category":"住宅设计","description":"将一栋老联排别墅改造为纯正托斯卡纳风格住宅。保留原有砖石结构，新增拱形门窗与锻铁阳台栏杆。室内地面铺设回收古旧赤陶砖，墙面采用石灰基大理石粉抹面工艺，呈现温润的手工质感。厨房定制实木橱柜搭配卡拉拉大理石台面，餐厅悬挂手工锻铁吊灯。","location":"深圳 · 华侨城","area":"260㎡","style":"托斯卡纳风格","year":2024,"featured":false,"order":4,"link":"","images":[],"createdAt":"2026-07-16T00:00:00.000Z","updatedAt":"2026-07-16T00:00:00.000Z"},{"id":"419c10be6a1d1e97","title":"圣吉米尼亚诺的午后 — 精品咖啡馆","category":"商业空间","description":"以托斯卡纳中世纪古镇为灵感的精品咖啡馆。空间中央设置一座手工砖砌弧形吧台，灵感源自古镇塔楼的圆形结构。墙面采用暖黄色石灰基涂层，地面铺设定制几何拼花赤陶砖。座区以拱形隔断划分，搭配意大利进口皮革沙发与橄榄木茶几。角落设置一面「意大利生活」主题照片墙，搭配暖色间接照明。","location":"成都 · 太古里","area":"180㎡","style":"托斯卡纳风格","year":2025,"featured":false,"order":5,"link":"","images":[],"createdAt":"2026-07-16T00:00:00.000Z","updatedAt":"2026-07-16T00:00:00.000Z"},{"id":"43d769237659b45a","title":"托斯卡纳新语 — 现代小户型","category":"住宅设计","description":"如何在98㎡的小户型中演绎托斯卡纳风格？本案以「轻托斯卡纳」为概念：保留暖陶土色系与拱形元素，但在材质上做减法。客餐厅一体化设计，整面电视墙采用仿古赤陶砖贴面，搭配极简白色柜体。卧室门洞改为拱形，搭配亚麻窗帘与藤编灯具。小空间照样拥有意大利午后的慵懒与温暖。","location":"北京 · 朝阳","area":"98㎡","style":"托斯卡纳风格","year":2026,"featured":false,"order":6,"link":"","images":[],"createdAt":"2026-07-16T00:00:00.000Z","updatedAt":"2026-07-16T00:00:00.000Z"}];
+const EMBEDDED_SETTINGS = {"name":"室内设计师","title":"私宅设计-曹小平个人作品集","about":"专注于高端住宅与商业空间设计，用设计语言诠释生活美学。每一个空间都是一次独特的叙事。","contact":{"phone":"13341929950","wechat":"ZuoShe001","email":"987624619@qq.com","address":""},"theme":"dark","yearExp":9};
+const IS_STATIC = true;
+
+// Override api() to use embedded data
+async function api(url, opts = {}) {
+    if (url === '/api/settings') return EMBEDDED_SETTINGS;
+    if (url === '/api/projects') return EMBEDDED_PROJECTS;
+    if (url.startsWith('/api/projects/')) {
+        const id = url.split('/').pop();
+        const p = EMBEDDED_PROJECTS.find(p => p.id === id);
+        if (!p) throw new Error('项目不存在');
+        return p;
+    }
+    return {};
+}
+
+// Override upload functions for static mode
+async function uploadImages() { throw new Error('静态模式下不可上传，请使用本地服务器'); }
+async function deleteImage() { throw new Error('静态模式下不可删除，请使用本地服务器'); }
+
+// Disable admin
+function showAdmin() {
+    window.location.hash = '';
+    toast('管理后台仅在本地服务器可用');
+}
+
+let projects = [], settings = {}, currentFilter = '全部', isAdmin = false;
+let lightboxImages = [], lightboxIdx = 0, editingProjectId = null;
+
+// ==================== INIT ====================
+async function init() {
+    await Promise.all([loadSettings(), loadProjects()]);
+    renderAll();
+    checkAdminHash();
+    window.addEventListener('hashchange', checkAdminHash);
+    window.addEventListener('scroll', () => {
+        document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 50);
+    });
+}
+
+async function api(url, opts = {}) {
+    const headers = { 'Content-Type': 'application/json' };
+    if (IS_STATIC) return api(url);
+    if (opts.body && typeof opts.body === 'string') headers['Content-Type'] = 'application/json';
+    const res = await fetch(API + url, { ...opts, headers });
+    if (!res.ok) {
+        const err = await res.json().catch(() => ({ error: '请求失败' }));
+        throw new Error(err.error || '请求失败');
+    }
+    return res.json();
+}
+
+async function loadSettings() {
+    try { settings = await api('/api/settings'); } catch(e) { console.error(e); }
+}
+async function loadProjects() {
+    try { projects = await api('/api/projects'); } catch(e) { console.error(e); }
+}
+
+async function uploadImages(projectId, files) {
+    const form = new FormData();
+    form.append('projectId', projectId);
+    for (const f of files) form.append('images', f);
+    const headers = {};
+    if (isAdmin && localStorage.getItem('admin_pwd')) headers['x-admin-password'] = localStorage.getItem('admin_pwd');
+    const res = await fetch(API + '/api/upload', { method: 'POST', headers, body: form });
+    return res.json();
+}
+
+async function deleteImage(projectId, filename) {
+    await api(`/api/projects/${projectId}/images/${filename}`, { method: 'DELETE' });
+}
+
+// ==================== RENDER ====================
+function renderAll() {
+    // Hero
+    document.getElementById('heroTitle').innerHTML = (settings.title || '空间美学设计工作室').replace(/(设计|空间|生活|美学)/g, '<em>$1</em>');
+    document.getElementById('heroDesc').textContent = settings.about || '';
+    // About
+    document.getElementById('aboutName').textContent = settings.name || '室内设计师';
+    document.getElementById('aboutDesc').textContent = settings.about || '';
+    document.getElementById('statProjects').textContent = projects.length;
+    document.getElementById('statYears').textContent = settings.yearExp || '—';
+    document.getElementById('statClients').textContent = Math.floor(projects.length * 1.8) || '—';
+    // Contact
+    const ci = document.getElementById('contactInfo');
+    ci.innerHTML = '';
+    if (settings.contact) {
+        if (settings.contact.phone) ci.innerHTML += `<div>📞 ${settings.contact.phone}</div>`;
+        if (settings.contact.wechat) ci.innerHTML += `<div>💬 微信: ${settings.contact.wechat}</div>`;
+        if (settings.contact.email) ci.innerHTML += `<div>✉️ ${settings.contact.email}</div>`;
+        if (settings.contact.address) ci.innerHTML += `<div>📍 ${settings.contact.address}</div>`;
+    }
+    if (ci.innerHTML === '') ci.innerHTML = '<div style="color:var(--text3)">联系方式请在后台设置</div>';
+
+    renderProjects();
+    renderShowcase();
+    renderAdmin();
+    updateFooterContact();
+}
+
+function renderProjects() {
+    const grid = document.getElementById('projectGrid');
+    const cats = new Set(projects.map(p => p.category));
+    const filterDiv = document.getElementById('categoryFilter');
+    filterDiv.innerHTML = '<button class="btn-sm' + (currentFilter === '全部' ? ' primary' : '') + '" onclick="filterProjects(\'全部\')">全部</button>';
+    cats.forEach(c => {
+        filterDiv.innerHTML += `<button class="btn-sm${currentFilter === c ? ' primary' : ''}" onclick="filterProjects('${c}')">${c}</button>`;
+    });
+
+    const filtered = currentFilter === '全部' ? projects : projects.filter(p => p.category === currentFilter);
+    if (filtered.length === 0) {
+        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:80px;color:var(--text3);letter-spacing:2px">暂无作品，请先在管理后台上传</div>';
+        return;
+    }
+    grid.innerHTML = filtered.map(p => `
+        <div class="project-card" onclick="openDetail('${p.id}')" style="position:relative">
+            <div class="ornament-corner tl"></div>
+            <div class="ornament-corner br"></div>
+            ${p.featured ? '<div class="featured-badge">⭐ 精选</div>' : ''}
+            ${p.images && p.images.length > 0
+                ? `<img src="/images/${p.images[0]}" alt="${p.title}" loading="lazy">`
+                : `<div style="width:100%;height:100%;background:linear-gradient(135deg,var(--bg3) 0%,#1a1510 50%,var(--bg3) 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:var(--text3);font-size:13px">
+                    <span style="font-size:28px">🏛️</span>${p.category} · ${p.style || '待补充图片'}</div>`}
+            <div class="project-overlay">
+                <div class="cat">${p.category}${p.style ? ' · ' + p.style : ''}</div>
+                <h3>${p.title}</h3>
+                <div class="meta">${p.location || ''} ${p.area ? '· ' + p.area : ''} ${p.year ? '· ' + p.year : ''}</div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function filterProjects(cat) { currentFilter = cat; renderProjects(); }
+
+function openDetail(id) {
+    const p = projects.find(p => p.id === id);
+    if (!p) return;
+    document.getElementById('detailTitle').textContent = p.title;
+    document.getElementById('detailBody').innerHTML = `
+        <div class="detail-meta">
+            ${p.category ? '<dl><dt>类型</dt><dd>'+p.category+'</dd></dl>' : ''}
+            ${p.style ? '<dl><dt>风格</dt><dd>'+p.style+'</dd></dl>' : ''}
+            ${p.area ? '<dl><dt>面积</dt><dd>'+p.area+'</dd></dl>' : ''}
+            ${p.location ? '<dl><dt>位置</dt><dd>'+p.location+'</dd></dl>' : ''}
+            ${p.year ? '<dl><dt>年份</dt><dd>'+p.year+'</dd></dl>' : ''}
+        </div>
+        ${p.link ? `<div style="margin-bottom:24px"><a href="${p.link}" target="_blank" rel="noopener" style="display:inline-block;padding:10px 24px;border:1px solid var(--gold);color:var(--gold);font-size:13px;letter-spacing:2px;transition:var(--transition)" onmouseover="this.style.background='var(--gold-dim)'" onmouseout="this.style.background='transparent'">🔗 查看项目链接 →</a></div>` : ''}
+        <p style="color:var(--text2);line-height:2">${p.description || ''}</p>
+        <div class="detail-gallery">
+            ${(p.images || []).map((img, i) => `<img src="/images/${img}" alt="${p.title}" onclick="event.stopPropagation();openLightbox('${p.id}', ${i})" loading="lazy">`).join('')}
+        </div>`;
+    document.getElementById('detailModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeDetail() {
+    document.getElementById('detailModal').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function openLightbox(projectId, idx) {
+    const p = projects.find(p => p.id === projectId);
+    if (!p || !p.images) return;
+    lightboxImages = p.images.map(img => ({ src: '/images/' + img, title: p.title }));
+    lightboxIdx = idx;
+    showLightboxImage();
+    document.getElementById('lightbox').classList.add('active');
+}
+function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); }
+function lightboxNav(dir) {
+    lightboxIdx = (lightboxIdx + dir + lightboxImages.length) % lightboxImages.length;
+    showLightboxImage();
+}
+function showLightboxImage() {
+    const img = lightboxImages[lightboxIdx];
+    document.getElementById('lightboxImg').src = img.src;
+    document.getElementById('lightboxInfo').textContent = `${img.title} — ${lightboxIdx + 1}/${lightboxImages.length}`;
+}
+
+// ==================== ADMIN ====================
+function checkAdminHash() {
+    if (window.location.hash === '#admin') { if (IS_STATIC) { showAdmin(); return; }
+        if (localStorage.getItem('admin_pwd')) {
+            isAdmin = true;
+            showAdmin();
+        } else {
+            showLogin();
+        }
+    } else {
+        isAdmin = false;
+        document.getElementById('adminPanel').classList.remove('active');
+        document.getElementById('mainNav').style.display = '';
+    }
+}
+
+function showLogin() {
+    const overlay = document.createElement('div');
+    overlay.className = 'login-overlay';
+    overlay.id = 'loginOverlay';
+    overlay.innerHTML = `
+        <div class="login-box">
+            <h2>管理后台</h2>
+            <p>请输入管理员密码</p>
+            <input type="password" id="loginPwd" placeholder="密码" onkeydown="if(event.key==='Enter')doLogin()">
+            <button class="btn" onclick="doLogin()">登 录</button>
+            <div class="login-error" id="loginError">密码错误</div>
+        </div>`;
+    document.body.appendChild(overlay);
+}
+
+async function doLogin() {
+    const pwd = document.getElementById('loginPwd').value;
+    try {
+        const res = await fetch(API + '/api/login', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password: pwd })
+        });
+        if (res.ok) {
+            localStorage.setItem('admin_pwd', pwd);
+            isAdmin = true;
+            document.getElementById('loginOverlay')?.remove();
+            showAdmin();
+        } else {
+            document.getElementById('loginError').style.display = 'block';
+        }
+    } catch(e) {
+        document.getElementById('loginError').style.display = 'block';
+    }
+}
+
+function showAdmin() {
+    document.getElementById('adminPanel').classList.add('active');
+    document.getElementById('mainNav').style.display = 'none';
+    document.getElementById('loginOverlay')?.remove();
+    window.location.hash = 'admin';
+    loadProjects().then(renderAdmin);
+}
+
+function logout() {
+    localStorage.removeItem('admin_pwd');
+    isAdmin = false;
+    document.getElementById('adminPanel').classList.remove('active');
+    document.getElementById('mainNav').style.display = '';
+    window.location.hash = '';
+    renderAll();
+}
+
+function renderShowcase() {
+    const grid = document.getElementById('showcaseGrid');
+    if (!grid) return;
+    const featured = projects.filter(p => p.featured).slice(0, 3);
+    if (featured.length === 0) { grid.innerHTML = ''; return; }
+    const main = featured[0];
+    const sides = featured.slice(1, 3);
+    grid.innerHTML = `
+        <div class="showcase-main fade-in" onclick="openDetail('${main.id}')">
+            ${main.images && main.images.length > 0
+                ? `<img src="/images/${main.images[0]}" alt="${main.title}" loading="lazy">`
+                : `<div style="width:100%;height:100%;background:linear-gradient(135deg,var(--bg3),#1a1510);display:flex;align-items:center;justify-content:center;font-size:48px">🏛️</div>`}
+            <div class="show-info">
+                <div class="tag">${main.category} · ${main.style || ''}</div>
+                <h3>${main.title}</h3>
+                <div style="font-size:12px;color:var(--text3);margin-top:4px">${main.area || ''} · ${main.location || ''}</div>
+            </div>
+        </div>
+        <div class="showcase-side">
+            ${sides.map(s => `
+                <div class="showcase-item fade-in" onclick="openDetail('${s.id}')">
+                    ${s.images && s.images.length > 0
+                        ? `<img src="/images/${s.images[0]}" alt="${s.title}" loading="lazy">`
+                        : `<div style="width:100%;height:100%;background:linear-gradient(135deg,var(--bg3),#151a10);display:flex;align-items:center;justify-content:center;font-size:32px">🏛️</div>`}
+                    <div class="show-info">
+                        <div class="tag">${s.category} · ${s.style || ''}</div>
+                        <h4>${s.title}</h4>
+                    </div>
+                </div>
+            `).join('')}
+            ${sides.length < 2 ? `<div class="showcase-item" style="background:linear-gradient(135deg,var(--bg2),#1a1510);display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:13px;letter-spacing:2px">
+                更多精选案例即将上线
+            </div>` : ''}
+        </div>`;
+}
+
+function updateFooterContact() {
+    if (settings.contact) {
+        const c = settings.contact;
+        document.getElementById('footerPhone').textContent = c.phone ? '📞 ' + c.phone : '';
+        document.getElementById('footerWechat').textContent = c.wechat ? '💬 微信: ' + c.wechat : '';
+        document.getElementById('footerEmail').textContent = c.email ? '✉️ ' + c.email : '';
+    }
+}
+
+function renderAdmin() {
+    const list = document.getElementById('adminProjectList');
+    if (projects.length === 0) {
+        list.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text3);letter-spacing:2px">还没有项目，点击右上角"新建项目"开始</div>';
+        return;
+    }
+    list.innerHTML = projects.map(p => `
+        <div class="project-row">
+            <div class="thumb">${p.images && p.images.length > 0 ? `<img src="/images/${p.images[0]}" alt="">` : ''}</div>
+            <div class="info">
+                <h4>${p.title} ${p.featured ? '⭐' : ''}</h4>
+                <span>${p.category} · ${p.images ? p.images.length : 0} 张图 · ${p.area || ''}</span>
+            </div>
+            <div class="actions">
+                <button class="btn-sm" onclick="editProject('${p.id}')">编 辑</button>
+                <button class="btn-sm danger" onclick="confirmDelete('${p.id}')">删 除</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function openProjectModal(editId = null) {
+    editingProjectId = editId;
+    const modal = document.getElementById('projectModal');
+    const title = document.getElementById('projectModalTitle');
+    const delBtn = document.getElementById('deleteProjectBtn');
+    const uploadArea = document.getElementById('uploadArea');
+    const uploadStatus = document.getElementById('uploadStatus');
+    const saveHint = document.getElementById('saveHint');
+
+    if (editId) {
+        // Editing existing project - everything unlocked
+        title.textContent = '✏️ 编辑项目';
+        delBtn.style.display = 'inline-block';
+        uploadArea.style.opacity = '1';
+        uploadArea.style.pointerEvents = 'auto';
+        uploadStatus.innerHTML = '<span style="color:#27ae60">✅ 可以上传</span>';
+        saveHint.innerHTML = '💡 修改后点击保存，也可继续上传新图片';
+        const p = projects.find(p => p.id === editId);
+        if (p) {
+            document.getElementById('projTitle').value = p.title || '';
+            document.getElementById('projCategory').value = p.category || '住宅设计';
+            document.getElementById('projStyle').value = p.style || '';
+            document.getElementById('projYear').value = p.year || '';
+            document.getElementById('projLocation').value = p.location || '';
+            document.getElementById('projArea').value = p.area || '';
+            document.getElementById('projLink').value = p.link || '';
+            document.getElementById('projDesc').value = p.description || '';
+            document.getElementById('projFeatured').checked = p.featured || false;
+            document.getElementById('imageGrid').innerHTML = '';
+            renderImageGrid(p);
+        }
+    } else {
+        // New project - upload locked until saved
+        title.textContent = '🆕 新建项目';
+        delBtn.style.display = 'none';
+        uploadArea.style.opacity = '0.5';
+        uploadArea.style.pointerEvents = 'none';
+        uploadStatus.innerHTML = '<span style="color:#e74c3c">🔒 请先保存项目</span>';
+        saveHint.innerHTML = '💡 填写信息后点击保存，即可解锁图片上传';
+        ['projTitle','projStyle','projLocation','projArea','projLink','projDesc'].forEach(id => document.getElementById(id).value = '');
+        document.getElementById('projCategory').value = '住宅设计';
+        document.getElementById('projYear').value = new Date().getFullYear();
+        document.getElementById('projFeatured').checked = false;
+        document.getElementById('imageGrid').innerHTML = '';
+        document.getElementById('fileInput').value = '';
+        document.getElementById('uploadProgress').style.display = 'none';
+    }
+    modal.classList.add('active');
+}
+
+function unlockUpload() {
+    document.getElementById('uploadArea').style.opacity = '1';
+    document.getElementById('uploadArea').style.pointerEvents = 'auto';
+    document.getElementById('uploadStatus').innerHTML = '<span style="color:#27ae60">✅ 可以上传</span>';
+    document.getElementById('saveHint').innerHTML = '✅ 项目已保存！现在可以上传效果图了';
+}
+
+async function saveProject() {
+    const data = {
+        title: document.getElementById('projTitle').value || '未命名项目',
+        category: document.getElementById('projCategory').value,
+        style: document.getElementById('projStyle').value,
+        year: parseInt(document.getElementById('projYear').value) || new Date().getFullYear(),
+        location: document.getElementById('projLocation').value,
+        area: document.getElementById('projArea').value,
+        link: document.getElementById('projLink').value,
+        description: document.getElementById('projDesc').value,
+        featured: document.getElementById('projFeatured').checked,
+    };
+
+    try {
+        if (editingProjectId) {
+            await api('/api/projects/' + editingProjectId, { method: 'PUT', body: JSON.stringify(data) });
+            // Upload any pending new images
+            const fileInput = document.getElementById('fileInput');
+            if (fileInput.files.length > 0) {
+                await uploadImages(editingProjectId, fileInput.files);
+                fileInput.value = '';
+            }
+        } else {
+            const res = await api('/api/projects', { method: 'POST', body: JSON.stringify(data) });
+            editingProjectId = res.id;
+            // Unlock upload for new project
+            unlockUpload();
+        }
+        await loadProjects();
+        // If editing, refresh image grid
+        if (editingProjectId) {
+            const p = projects.find(p => p.id === editingProjectId);
+            if (p) renderImageGrid(p);
+        }
+        renderAll();
+        toast('✅ 项目已保存');
+    } catch(e) {
+        toast('❌ ' + e.message);
+    }
+}
+
+async function deleteProject() {
+    if (!confirm('确定要删除这个项目吗？所有图片将被永久删除。')) return;
+    try {
+        await api('/api/projects/' + editingProjectId, { method: 'DELETE' });
+        editingProjectId = null;
+        closeModal('projectModal');
+        await loadProjects();
+        renderAll();
+        toast('🗑️ 项目已删除');
+    } catch(e) { toast('❌ ' + e.message); }
+}
+
+function confirmDelete(id) {
+    if (confirm('确定删除此项目？')) {
+        api('/api/projects/' + id, { method: 'DELETE' }).then(() => {
+            loadProjects().then(renderAll);
+            toast('🗑️ 已删除');
+        });
+    }
+}
+
+async function renderImageGrid(project) {
+    const grid = document.getElementById('imageGrid');
+    grid.innerHTML = (project.images || []).map(img => `
+        <div class="img-item">
+            <img src="/images/${img}" alt="">
+            <button class="del-btn" onclick="event.stopPropagation();removeImage('${project.id}','${img}')">✕</button>
+        </div>
+    `).join('');
+}
+
+async function removeImage(projectId, filename) {
+    await deleteImage(projectId, filename);
+    await loadProjects();
+    const p = projects.find(p => p.id === projectId);
+    if (p) renderImageGrid(p);
+    toast('图片已删除');
+}
+
+function openSettingsModal() {
+    document.getElementById('setName').value = settings.name || '';
+    document.getElementById('setTitle').value = settings.title || '';
+    document.getElementById('setAbout').value = settings.about || '';
+    document.getElementById('setPhone').value = (settings.contact && settings.contact.phone) || '';
+    document.getElementById('setWechat').value = (settings.contact && settings.contact.wechat) || '';
+    document.getElementById('setEmail').value = (settings.contact && settings.contact.email) || '';
+    document.getElementById('setAddress').value = (settings.contact && settings.contact.address) || '';
+    document.getElementById('setYearExp').value = settings.yearExp || '';
+    document.getElementById('setPassword').value = '';
+    document.getElementById('settingsModal').classList.add('active');
+}
+
+async function saveSettings() {
+    const data = {
+        name: document.getElementById('setName').value,
+        title: document.getElementById('setTitle').value,
+        about: document.getElementById('setAbout').value,
+        contact: {
+            phone: document.getElementById('setPhone').value,
+            wechat: document.getElementById('setWechat').value,
+            email: document.getElementById('setEmail').value,
+            address: document.getElementById('setAddress').value,
+        },
+        yearExp: parseInt(document.getElementById('setYearExp').value) || null,
+    };
+    const newPwd = document.getElementById('setPassword').value;
+    try {
+        await api('/api/settings', { method: 'PUT', body: JSON.stringify(data) });
+        if (newPwd) {
+            await api('/api/settings/password', { method: 'PUT', body: JSON.stringify({ newPassword: newPwd }) });
+            localStorage.setItem('admin_pwd', newPwd);
+            toast('✅ 设置和密码已更新');
+        } else {
+            toast('✅ 设置已保存');
+        }
+        await loadSettings();
+        closeModal('settingsModal');
+        renderAll();
+    } catch(e) { toast('❌ ' + e.message); }
+}
+
+function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+// ==================== UPLOAD ====================
+document.addEventListener('DOMContentLoaded', () => {
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('fileInput');
+    if (uploadArea) {
+        uploadArea.addEventListener('click', () => fileInput.click());
+        uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.style.borderColor = 'var(--gold)'; });
+        uploadArea.addEventListener('dragleave', () => uploadArea.style.borderColor = '');
+        uploadArea.addEventListener('drop', e => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '';
+            if (e.dataTransfer.files.length > 0) {
+                handleUploadFiles(e.dataTransfer.files);
+            }
+        });
+    }
+    if (fileInput) fileInput.addEventListener('change', () => {
+        if (fileInput.files.length > 0) handleUploadFiles(fileInput.files);
+    });
+});
+
+async function handleUploadFiles(files) {
+    if (!editingProjectId) { toast('⚠️ 请先点击"保存项目"后再上传图片'); return; }
+
+    const progressDiv = document.getElementById('uploadProgress');
+    const percentSpan = document.getElementById('uploadPercent');
+    const bar = document.getElementById('uploadBar');
+
+    progressDiv.style.display = 'block';
+    percentSpan.textContent = '0%';
+    bar.style.width = '0%';
+
+    try {
+        // Simulate progress since fetch doesn't give real upload progress easily
+        let progress = 0;
+        const progressInterval = setInterval(() => {
+            progress += Math.random() * 15;
+            if (progress > 90) progress = 90;
+            percentSpan.textContent = Math.round(progress) + '%';
+            bar.style.width = progress + '%';
+        }, 200);
+
+        await uploadImages(editingProjectId, files);
+
+        clearInterval(progressInterval);
+        percentSpan.textContent = '100%';
+        bar.style.width = '100%';
+
+        await loadProjects();
+        const p = projects.find(p => p.id === editingProjectId);
+        if (p) renderImageGrid(p);
+
+        setTimeout(() => { progressDiv.style.display = 'none'; }, 1000);
+
+        const fileInput = document.getElementById('fileInput');
+        if (fileInput) fileInput.value = '';
+
+        toast(`✅ ${files.length} 张效果图已上传成功！`);
+    } catch(e) {
+        document.getElementById('uploadProgress').style.display = 'none';
+        toast('❌ 上传失败: ' + e.message);
+    }
+}
+
+// ==================== UTILS ====================
+function toast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// Lightbox keyboard
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeLightbox(); closeDetail(); }
+    if (e.key === 'ArrowLeft' && document.getElementById('lightbox').classList.contains('active')) lightboxNav(-1);
+    if (e.key === 'ArrowRight' && document.getElementById('lightbox').classList.contains('active')) lightboxNav(1);
+});
+
+// Scroll reveal
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.15 });
+document.querySelectorAll('.fade-in').forEach(el => revealObserver.observe(el));
+
+// Update stats
+function updateAllStats() {
+    const count = projects.length;
+    ['statProjects2'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = count; });
+    const clientsEl = document.getElementById('statClients2');
+    if (clientsEl) clientsEl.textContent = Math.floor(count * 2.5) || '—';
+}
+
+// FAQ toggle
+function toggleFAQ(btn) {
+    const answer = btn.nextElementSibling;
+    const isOpen = answer.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.faq-q.open').forEach(q => q.classList.remove('open'));
+    document.querySelectorAll('.faq-a.open').forEach(a => a.classList.remove('open'));
+    // Open this one if it wasn't already open
+    if (!isOpen) { btn.classList.add('open'); answer.classList.add('open'); }
+}
+
+// Floating buttons
+window.addEventListener('scroll', () => {
+    const floatTop = document.querySelector('.float-top');
+    if (floatTop) floatTop.classList.toggle('show', window.scrollY > 600);
+});
+
+// Init
+init();
+// Override renderAll to also update new stats
+const origRenderAll = renderAll;
+renderAll = function() {
+    origRenderAll();
+    updateAllStats();
+};
+</script>
+</body>
+</html>
