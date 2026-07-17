@@ -589,21 +589,14 @@ section{padding:100px 60px}
       <img id="aboutImg" src="" alt="设计师照片" style="display:none">
     </div>
     <div class="about-text fade-in">
-      <h3 id="aboutName" style="font-family:var(--serif);font-size:32px;color:var(--white);font-weight:400;margin-bottom:8px;letter-spacing:2px">曹小平</h3>
-      <p style="color:var(--gold);font-size:14px;letter-spacing:3px;margin-bottom:24px">私宅设计主理人 / 从业 9 年</p>
+      <h3 id="aboutName" style="font-family:var(--serif);font-size:32px;color:var(--white);font-weight:400;margin-bottom:8px;letter-spacing:2px"></h3>
+      <p id="aboutDesignerTitle" style="color:var(--gold);font-size:14px;letter-spacing:3px;margin-bottom:24px"></p>
       <div class="ornament-divider" style="justify-content:flex-start;margin:0 0 24px 0">
         <div class="line" style="width:40px"></div>
         <div class="diamond"></div>
       </div>
-      <p id="aboutDesc" style="color:var(--text2);font-size:15px;line-height:2.2;margin-bottom:20px">
-        专注于高端住宅与商业空间设计，用设计语言诠释生活美学。每一个空间都是一次独特的叙事。
-      </p>
-      <p style="color:var(--text3);font-size:14px;line-height:2;margin-bottom:32px">
-        <span style="color:var(--gold)">▸</span> 从业 9 年，深耕私宅设计领域<br>
-        <span style="color:var(--gold)">▸</span> 擅长托斯卡纳、现代简约、新中式等多种风格<br>
-        <span style="color:var(--gold)">▸</span> 注重空间的功能性与情感温度<br>
-        <span style="color:var(--gold)">▸</span> 全案托管，从设计到落地全程跟踪
-      </p>
+      <p id="aboutDesc" style="color:var(--text2);font-size:15px;line-height:2.2;margin-bottom:20px"></p>
+      <p id="aboutSkills" style="color:var(--text3);font-size:14px;line-height:2;margin-bottom:32px"></p>
       <div class="about-stats">
         <div class="stat"><h4 id="statProjects">0</h4><span>完成项目</span></div>
         <div class="stat"><h4 id="statYears">9</h4><span>从业年限</span></div>
@@ -861,9 +854,11 @@ section{padding:100px 60px}
 <div class="modal" id="settingsModal">
   <div class="modal-content">
     <h3>网站设置</h3>
-    <div class="form-group"><label>设计师名称</label><input id="setName"></div>
-    <div class="form-group"><label>工作室名称</label><input id="setTitle"></div>
-    <div class="form-group"><label>个人简介</label><textarea id="setAbout"></textarea></div>
+    <div class="form-group"><label>设计师名称</label><input id="setName" placeholder="曹小平"></div>
+    <div class="form-group"><label>网站标题</label><input id="setTitle" placeholder="曹小平设计作品集"></div>
+    <div class="form-group"><label>个人身份（如：私宅设计主理人）</label><input id="setDesignerTitle" placeholder="私宅设计主理人"></div>
+    <div class="form-group"><label>个人简介（关于我）</label><textarea id="setAbout" placeholder="专注于高端住宅与商业空间设计..."></textarea></div>
+    <div class="form-group"><label>技能特长（每行一条）</label><textarea id="setSkills" placeholder="从业 9 年，深耕私宅设计领域&#10;擅长托斯卡纳、现代简约、新中式等多种风格&#10;注重空间的功能性与情感温度&#10;全案托管，从设计到落地全程跟踪"></textarea></div>
     <div class="form-group"><label>联系电话</label><input id="setPhone"></div>
     <div class="form-group"><label>微信</label><input id="setWechat"></div>
     <div class="form-group"><label>邮箱</label><input id="setEmail"></div>
@@ -887,7 +882,7 @@ section{padding:100px 60px}
 
 // ===== EMBEDDED DATA (Generated for GitHub Pages) =====
 const EMBEDDED_PROJECTS = [{"id":"3e825ded12253e43","title":"托斯卡纳艳阳下 — 独栋别墅","category":"住宅设计","description":"灵感源自意大利托斯卡纳乡村庄园。整案以暖陶土色为主基调，搭配手工赤陶地砖、粗粝质感的米黄色洞石墙面、原木天花梁架，营造出沐浴在艳阳下的意式田园生活美学。客厅挑空区域设置手凿石材壁炉作为视觉核心，厨房采用开放式格局搭配中岛，庭院的拱形落地窗将户外橄榄树景引入室内。","location":"杭州 · 绿城桃花源","area":"480㎡","style":"托斯卡纳风格","year":2025,"featured":true,"order":1,"link":"","images":[],"createdAt":"2026-07-16T00:00:00.000Z","updatedAt":"2026-07-16T00:00:00.000Z"},{"id":"2e467bad8ce4aa78","title":"翡冷翠之夜 — 大平层私宅","category":"住宅设计","description":"以佛罗伦萨文艺复兴为精神内核，融合托斯卡纳乡土材质与现代极简线条。全屋以大地色系贯穿：锡耶纳黄的肌理漆墙面、深胡桃木定制家具、黑色锻铁装饰细节。主卧套房设有拱形天花与手绘壁画，卫浴空间采用马赛克拼花与大理石双台盆。灯光设计模拟托斯卡纳黄昏的暖金色调，营造静谧优雅的居住氛围。","location":"上海 · 翠湖天地","area":"320㎡","style":"托斯卡纳风格","year":2025,"featured":true,"order":2,"link":"","images":[],"createdAt":"2026-07-16T00:00:00.000Z","updatedAt":"2026-07-16T00:00:00.000Z"},{"id":"e579f26b6c0b4731","title":"田园诗 — 郊外度假别墅","category":"酒店民宿","description":"一座回归自然的托斯卡纳风度假别墅。建筑设计采用当地石材干挂外墙，赤陶瓦屋顶，内部保留原始木梁结构。空间规划强调室内外融合：可完全打开的折叠玻璃门将客厅延伸至橄榄树庭院，户外设有石砌泳池与披萨烤炉。室内软装选用意大利手工陶器、亚麻织物与古董家具，每间客房都可观赏托斯卡纳丘陵日落。","location":"莫干山 · 裸心谷","area":"580㎡","style":"托斯卡纳风格","year":2024,"featured":true,"order":3,"link":"","images":[],"createdAt":"2026-07-16T00:00:00.000Z","updatedAt":"2026-07-16T00:00:00.000Z"},{"id":"dabb64e0abd488b1","title":"基安蒂山谷 — 联排别墅改造","category":"住宅设计","description":"将一栋老联排别墅改造为纯正托斯卡纳风格住宅。保留原有砖石结构，新增拱形门窗与锻铁阳台栏杆。室内地面铺设回收古旧赤陶砖，墙面采用石灰基大理石粉抹面工艺，呈现温润的手工质感。厨房定制实木橱柜搭配卡拉拉大理石台面，餐厅悬挂手工锻铁吊灯。","location":"深圳 · 华侨城","area":"260㎡","style":"托斯卡纳风格","year":2024,"featured":false,"order":4,"link":"","images":[],"createdAt":"2026-07-16T00:00:00.000Z","updatedAt":"2026-07-16T00:00:00.000Z"},{"id":"419c10be6a1d1e97","title":"圣吉米尼亚诺的午后 — 精品咖啡馆","category":"商业空间","description":"以托斯卡纳中世纪古镇为灵感的精品咖啡馆。空间中央设置一座手工砖砌弧形吧台，灵感源自古镇塔楼的圆形结构。墙面采用暖黄色石灰基涂层，地面铺设定制几何拼花赤陶砖。座区以拱形隔断划分，搭配意大利进口皮革沙发与橄榄木茶几。角落设置一面「意大利生活」主题照片墙，搭配暖色间接照明。","location":"成都 · 太古里","area":"180㎡","style":"托斯卡纳风格","year":2025,"featured":false,"order":5,"link":"","images":[],"createdAt":"2026-07-16T00:00:00.000Z","updatedAt":"2026-07-16T00:00:00.000Z"},{"id":"43d769237659b45a","title":"托斯卡纳新语 — 现代小户型","category":"住宅设计","description":"如何在98㎡的小户型中演绎托斯卡纳风格？本案以「轻托斯卡纳」为概念：保留暖陶土色系与拱形元素，但在材质上做减法。客餐厅一体化设计，整面电视墙采用仿古赤陶砖贴面，搭配极简白色柜体。卧室门洞改为拱形，搭配亚麻窗帘与藤编灯具。小空间照样拥有意大利午后的慵懒与温暖。","location":"北京 · 朝阳","area":"98㎡","style":"托斯卡纳风格","year":2026,"featured":false,"order":6,"link":"","images":[],"createdAt":"2026-07-16T00:00:00.000Z","updatedAt":"2026-07-16T00:00:00.000Z"}];
-const EMBEDDED_SETTINGS = {"name":"曹小平","title":"曹小平设计作品集","about":"专注于高端住宅与商业空间设计，用设计语言诠释生活美学。每一个空间都是一次独特的叙事。","contact":{"phone":"13341929950","wechat":"ZuoShe001","email":"987624619@qq.com","address":""},"theme":"dark","yearExp":9};
+const EMBEDDED_SETTINGS = {"name":"曹小平","title":"曹小平设计作品集","designerTitle":"私宅设计主理人","about":"专注于高端住宅与商业空间设计，用设计语言诠释生活美学。每一个空间都是一次独特的叙事。","specialties":["托斯卡纳风格","现代简约","新中式","轻法式","侘寂风"],"contact":{"phone":"13341929950","wechat":"ZuoShe001","email":"987624619@qq.com","address":""},"theme":"dark","yearExp":9,"skills":"从业 9 年，深耕私宅设计领域\n擅长托斯卡纳、现代简约、新中式等多种风格\n注重空间的功能性与情感温度\n全案托管，从设计到落地全程跟踪"};
 const IS_STATIC = true;
 
 // Override api() to use embedded data
@@ -966,8 +961,14 @@ function renderAll() {
     document.getElementById('heroTitle').innerHTML = (settings.title || '曹小平设计作品集').replace(/(设计|空间|生活|美学)/g, '<em>$1</em>');
     document.getElementById('heroDesc').textContent = settings.about || '';
     // About
-    document.getElementById('aboutName').textContent = settings.name || '室内设计师';
+    document.getElementById('aboutName').textContent = settings.name || '曹小平';
+    document.getElementById('aboutDesignerTitle').textContent = (settings.designerTitle || '私宅设计主理人') + ' / 从业 ' + (settings.yearExp || '—') + ' 年';
     document.getElementById('aboutDesc').textContent = settings.about || '';
+    const skillsEl = document.getElementById('aboutSkills');
+    if (skillsEl) {
+        const skillsText = settings.skills || '';
+        skillsEl.innerHTML = skillsText.split('\\n').filter(s => s.trim()).map(s => '<span style="color:var(--gold)">▸</span> ' + s.trim()).join('<br>');
+    }
     document.getElementById('statProjects').textContent = projects.length;
     document.getElementById('statYears').textContent = settings.yearExp || '—';
     document.getElementById('statClients').textContent = Math.floor(projects.length * 1.8) || '—';
@@ -1341,7 +1342,9 @@ async function removeImage(projectId, filename) {
 function openSettingsModal() {
     document.getElementById('setName').value = settings.name || '';
     document.getElementById('setTitle').value = settings.title || '';
+    document.getElementById('setDesignerTitle').value = settings.designerTitle || '';
     document.getElementById('setAbout').value = settings.about || '';
+    document.getElementById('setSkills').value = (settings.skills || '').replace(/\\n/g, '\n');
     document.getElementById('setPhone').value = (settings.contact && settings.contact.phone) || '';
     document.getElementById('setWechat').value = (settings.contact && settings.contact.wechat) || '';
     document.getElementById('setEmail').value = (settings.contact && settings.contact.email) || '';
@@ -1355,7 +1358,9 @@ async function saveSettings() {
     const data = {
         name: document.getElementById('setName').value,
         title: document.getElementById('setTitle').value,
+        designerTitle: document.getElementById('setDesignerTitle').value,
         about: document.getElementById('setAbout').value,
+        skills: document.getElementById('setSkills').value.replace(/\n/g, '\\n'),
         contact: {
             phone: document.getElementById('setPhone').value,
             wechat: document.getElementById('setWechat').value,
