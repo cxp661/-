@@ -424,7 +424,7 @@ section{padding:100px 60px}
 <nav id="mainNav">
   <a href="/" class="logo"><span>/</span> STUDIO</a>
   <ul class="nav-links">
-    <li><a href="#showcase">作品</a></li>
+    <li><a href="#works">作品集</a></li>
     <li><a href="#services">服务</a></li>
     <li><a href="#about">关于</a></li>
     <li><a href="#contact">联系</a></li>
@@ -474,6 +474,16 @@ section{padding:100px 60px}
     <span class="style-tag">工业风</span>
     <span class="style-tag">地中海</span>
   </div>
+</section>
+
+<!-- ==================== PROJECT PORTFOLIO ==================== -->
+<section id="works" style="position:relative">
+  <div class="section-tag fade-in">Portfolio</div>
+  <h2 class="section-title fade-in">设计作品集</h2>
+  <div class="ornament-divider fade-in"><div class="line"></div><div class="diamond"></div><div class="line"></div></div>
+  <div id="categoryFilter" style="display:flex;gap:16px;margin-bottom:40px;flex-wrap:wrap"></div>
+  <div class="project-grid" id="projectGrid"></div>
+  <div class="loading" id="loading" style="display:none">加载中...</div>
 </section>
 
 <!-- ==================== DESIGN PHILOSOPHY ==================== -->
@@ -957,6 +967,7 @@ function renderAll() {
     if (ci.innerHTML === '') ci.innerHTML = '<div style="color:var(--text3)">联系方式请在后台设置</div>';
 
     renderShowcase();
+    renderProjects();
     renderAdmin();
     updateFooterContact();
 }
