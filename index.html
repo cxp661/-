@@ -886,7 +886,7 @@ let lightboxImages = [], lightboxIdx = 0, editingProjectId = null;
 
 // ==================== INIT ====================
 async function init() {
-    await Promise.all([loadSettings(), loadProjects()]);
+    settings = EMBEDDED_SETTINGS; projects = EMBEDDED_PROJECTS;
     renderAll();
     checkAdminHash();
     window.addEventListener('hashchange', checkAdminHash);
