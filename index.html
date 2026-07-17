@@ -76,11 +76,15 @@ section{padding:100px 60px}
 
 /* ==================== PROJECT GRID ==================== */
 .project-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:4px}
-.project-card{position:relative;overflow:hidden;cursor:pointer;aspect-ratio:4/3;background:var(--bg2);
-  transition:var(--transition)}
-.project-card:hover{transform:translateY(-2px)}
+.project-card{position:relative;overflow:hidden;cursor:pointer;aspect-ratio:4/3;background:linear-gradient(145deg,var(--bg2) 0%,#1a1510 50%,var(--bg2) 100%);
+  transition:var(--transition);border:1px solid rgba(255,255,255,0.03)}
+.project-card:hover{transform:translateY(-3px);border-color:var(--gold-dim);box-shadow:0 20px 60px rgba(0,0,0,0.5)}
 .project-card img{width:100%;height:100%;object-fit:cover;transition:0.8s cubic-bezier(0.25,0.1,0.25,1)}
 .project-card:hover img{transform:scale(1.05)}
+.project-card .card-icon{font-size:40px;opacity:0.4;transition:var(--transition)}
+.project-card:hover .card-icon{opacity:0.7;transform:scale(1.1)}
+.project-card .card-meta{font-size:11px;color:var(--text3);letter-spacing:1px;text-align:center}
+.project-card .card-title{font-family:var(--serif);font-size:16px;color:var(--white);font-weight:400;text-align:center;margin-top:8px}
 .project-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.85) 100%);
   display:flex;flex-direction:column;justify-content:flex-end;padding:32px;opacity:0.9;transition:var(--transition)}
 .project-card:hover .project-overlay{opacity:1;background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,0.9) 100%)}
@@ -890,7 +894,7 @@ const API = '';
 let projects = [], settings = {}, currentFilter = '全部', isAdmin = false;
 
 // ===== EMBEDDED DATA (Generated for GitHub Pages) =====
-const EMBEDDED_PROJECTS = [{"id":"2e467bad8ce4aa78","title":"翡冷翠之夜 — 大平层私宅","category":"住宅设计","description":"以佛罗伦萨文艺复兴为精神内核，融合托斯卡纳乡土材质与现代极简线条。全屋以大地色系贯穿：锡耶纳黄的肌理漆墙面、深胡桃木定制家具、黑色锻铁装饰细节。主卧套房设有拱形天花与手绘壁画，卫浴空间采用马赛克拼花与大理石双台盆。灯光设计模拟托斯卡纳黄昏的暖金色调，营造静谧优雅的居住氛围。","location":"上海 · 翠湖天地","area":"320㎡","style":"托斯卡纳风格","year":2025,"featured":true,"order":2,"link":"","images":["1784263775314-ed423b39.jpg","1784263775321-f0987c05.jpg","1784275500101-a64aba6b.png","1784275510185-b1370f99.png"],"createdAt":"2026-07-16T00:00:00.000Z","updatedAt":"2026-07-16T00:00:00.000Z"},{"id":"e579f26b6c0b4731","title":"田园诗 — 郊外度假别墅","category":"酒店民宿","description":"一座回归自然的托斯卡纳风度假别墅。建筑设计采用当地石材干挂外墙，赤陶瓦屋顶，内部保留原始木梁结构。空间规划强调室内外融合：可完全打开的折叠玻璃门将客厅延伸至橄榄树庭院，户外设有石砌泳池与披萨烤炉。室内软装选用意大利手工陶器、亚麻织物与古董家具，每间客房都可观赏托斯卡纳丘陵日落。","location":"莫干山 · 裸心谷","area":"580㎡","style":"托斯卡纳风格","year":2024,"featured":true,"order":3,"link":"","images":["1784263775318-e824027d.jpg","1784263775322-583d57eb.jpg","1784275505966-5e2f49fd.png"],"createdAt":"2026-07-16T00:00:00.000Z","updatedAt":"2026-07-16T00:00:00.000Z"},{"id":"dabb64e0abd488b1","title":"基安蒂山谷 — 联排别墅改造","category":"住宅设计","description":"将一栋老联排别墅改造为纯正托斯卡纳风格住宅。保留原有砖石结构，新增拱形门窗与锻铁阳台栏杆。室内地面铺设回收古旧赤陶砖，墙面采用石灰基大理石粉抹面工艺，呈现温润的手工质感。厨房定制实木橱柜搭配卡拉拉大理石台面，餐厅悬挂手工锻铁吊灯。","location":"深圳 · 华侨城","area":"260㎡","style":"托斯卡纳风格","year":2024,"featured":false,"order":4,"link":"","images":[],"createdAt":"2026-07-16T00:00:00.000Z","updatedAt":"2026-07-16T00:00:00.000Z"},{"id":"419c10be6a1d1e97","title":"圣吉米尼亚诺的午后 — 精品咖啡馆","category":"商业空间","description":"以托斯卡纳中世纪古镇为灵感的精品咖啡馆。空间中央设置一座手工砖砌弧形吧台，灵感源自古镇塔楼的圆形结构。墙面采用暖黄色石灰基涂层，地面铺设定制几何拼花赤陶砖。座区以拱形隔断划分，搭配意大利进口皮革沙发与橄榄木茶几。角落设置一面「意大利生活」主题照片墙，搭配暖色间接照明。","location":"成都 · 太古里","area":"180㎡","style":"托斯卡纳风格","year":2025,"featured":false,"order":5,"link":"","images":[],"createdAt":"2026-07-16T00:00:00.000Z","updatedAt":"2026-07-16T00:00:00.000Z"},{"id":"43d769237659b45a","title":"托斯卡纳新语 — 现代小户型","category":"住宅设计","description":"如何在98㎡的小户型中演绎托斯卡纳风格？本案以「轻托斯卡纳」为概念：保留暖陶土色系与拱形元素，但在材质上做减法。客餐厅一体化设计，整面电视墙采用仿古赤陶砖贴面，搭配极简白色柜体。卧室门洞改为拱形，搭配亚麻窗帘与藤编灯具。小空间照样拥有意大利午后的慵懒与温暖。","location":"北京 · 朝阳","area":"98㎡","style":"托斯卡纳风格","year":2026,"featured":false,"order":6,"link":"","images":[],"createdAt":"2026-07-16T00:00:00.000Z","updatedAt":"2026-07-16T00:00:00.000Z"},{"id":"616277293ec64e0f","title":"万科意式极简效果图","category":"住宅设计","description":"","location":"","area":"160平方","style":"意式极简","year":2025,"featured":false,"order":7,"images":["1784275500101-a64aba6b.png","1784275505966-5e2f49fd.png","1784275510185-b1370f99.png"],"createdAt":"2026-07-17T08:04:54.381Z","updatedAt":"2026-07-17T08:10:30.708Z","link":"https://vr.justeasy.cn/view/176q508s533t1433-1763315778.html"}];
+const EMBEDDED_PROJECTS = [{"id":"2e467bad8ce4aa78","title":"翡冷翠之夜 — 大平层私宅","category":"住宅设计","description":"以佛罗伦萨文艺复兴为精神内核，融合托斯卡纳乡土材质与现代极简线条。全屋以大地色系贯穿：锡耶纳黄的肌理漆墙面、深胡桃木定制家具、黑色锻铁装饰细节。主卧套房设有拱形天花与手绘壁画，卫浴空间采用马赛克拼花与大理石双台盆。灯光设计模拟托斯卡纳黄昏的暖金色调，营造静谧优雅的居住氛围。","location":"上海 · 翠湖天地","area":"320㎡","style":"托斯卡纳风格","year":2025,"featured":true,"order":2,"link":"","images":[],"createdAt":"2026-07-16T00:00:00.000Z","updatedAt":"2026-07-16T00:00:00.000Z"},{"id":"e579f26b6c0b4731","title":"田园诗 — 郊外度假别墅","category":"酒店民宿","description":"一座回归自然的托斯卡纳风度假别墅。建筑设计采用当地石材干挂外墙，赤陶瓦屋顶，内部保留原始木梁结构。空间规划强调室内外融合：可完全打开的折叠玻璃门将客厅延伸至橄榄树庭院，户外设有石砌泳池与披萨烤炉。室内软装选用意大利手工陶器、亚麻织物与古董家具，每间客房都可观赏托斯卡纳丘陵日落。","location":"莫干山 · 裸心谷","area":"580㎡","style":"托斯卡纳风格","year":2024,"featured":true,"order":3,"link":"","images":[],"createdAt":"2026-07-16T00:00:00.000Z","updatedAt":"2026-07-16T00:00:00.000Z"},{"id":"dabb64e0abd488b1","title":"基安蒂山谷 — 联排别墅改造","category":"住宅设计","description":"将一栋老联排别墅改造为纯正托斯卡纳风格住宅。保留原有砖石结构，新增拱形门窗与锻铁阳台栏杆。室内地面铺设回收古旧赤陶砖，墙面采用石灰基大理石粉抹面工艺，呈现温润的手工质感。厨房定制实木橱柜搭配卡拉拉大理石台面，餐厅悬挂手工锻铁吊灯。","location":"深圳 · 华侨城","area":"260㎡","style":"托斯卡纳风格","year":2024,"featured":false,"order":4,"link":"","images":[],"createdAt":"2026-07-16T00:00:00.000Z","updatedAt":"2026-07-16T00:00:00.000Z"},{"id":"419c10be6a1d1e97","title":"圣吉米尼亚诺的午后 — 精品咖啡馆","category":"商业空间","description":"以托斯卡纳中世纪古镇为灵感的精品咖啡馆。空间中央设置一座手工砖砌弧形吧台，灵感源自古镇塔楼的圆形结构。墙面采用暖黄色石灰基涂层，地面铺设定制几何拼花赤陶砖。座区以拱形隔断划分，搭配意大利进口皮革沙发与橄榄木茶几。角落设置一面「意大利生活」主题照片墙，搭配暖色间接照明。","location":"成都 · 太古里","area":"180㎡","style":"托斯卡纳风格","year":2025,"featured":false,"order":5,"link":"","images":[],"createdAt":"2026-07-16T00:00:00.000Z","updatedAt":"2026-07-16T00:00:00.000Z"},{"id":"43d769237659b45a","title":"托斯卡纳新语 — 现代小户型","category":"住宅设计","description":"如何在98㎡的小户型中演绎托斯卡纳风格？本案以「轻托斯卡纳」为概念：保留暖陶土色系与拱形元素，但在材质上做减法。客餐厅一体化设计，整面电视墙采用仿古赤陶砖贴面，搭配极简白色柜体。卧室门洞改为拱形，搭配亚麻窗帘与藤编灯具。小空间照样拥有意大利午后的慵懒与温暖。","location":"北京 · 朝阳","area":"98㎡","style":"托斯卡纳风格","year":2026,"featured":false,"order":6,"link":"","images":[],"createdAt":"2026-07-16T00:00:00.000Z","updatedAt":"2026-07-16T00:00:00.000Z"},{"id":"616277293ec64e0f","title":"万科意式极简效果图","category":"住宅设计","description":"","location":"","area":"160平方","style":"意式极简","year":2025,"featured":false,"order":7,"images":[],"createdAt":"2026-07-17T08:04:54.381Z","updatedAt":"2026-07-17T08:10:30.708Z","link":"https://vr.justeasy.cn/view/176q508s533t1433-1763315778.html"}];
 const EMBEDDED_SETTINGS = {"name":"曹小平","title":"曹小平设计作品集","designerTitle":"设计师-曹小平","about":"专注于高端住宅与商业空间设计，用设计语言诠释生活美学。每一个空间都是一次独特的叙事。","specialties":["托斯卡纳风格","现代简约","新中式","轻法式","侘寂风"],"contact":{"phone":"13341929950","wechat":"ZuoShe001","email":"987624619@qq.com","address":""},"theme":"dark","yearExp":9,"skills":"从业 9 年，深耕私宅设计领域\\n擅长托斯卡纳、现代简约、新中式等多种风格\\n注重空间的功能性与情感温度\\n全案托管，从设计到落地全程跟踪"};
 const IS_STATIC = true;
 
@@ -994,9 +998,13 @@ function renderProjects() {
             <div class="ornament-corner br"></div>
             ${p.featured ? '<div class="featured-badge">⭐ 精选</div>' : ''}
             ${p.images && p.images.length > 0
-                ? `<img src="/images/${p.images[0]}" alt="${p.title}" loading="lazy">`
-                : `<div style="width:100%;height:100%;background:linear-gradient(135deg,var(--bg3) 0%,#1a1510 50%,var(--bg3) 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:var(--text3);font-size:13px">
-                    <span style="font-size:28px">🏛️</span>${p.category} · ${p.style || '待补充图片'}</div>`}
+                ? `<img src="images/${p.images[0]}" alt="${p.title}" loading="lazy">`
+                : `<div style="width:100%;height:100%;background:linear-gradient(145deg,var(--bg3) 0%,#1a1510 30%,#0f0f0f 70%,var(--bg3) 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px">
+                    <span class="card-icon">${p.category==='住宅设计'?'🏠':p.category==='商业空间'?'🏪':p.category==='酒店民宿'?'🏨':p.category==='办公空间'?'🏢':'📐'}</span>
+                    <span class="card-title">${p.title}</span>
+                    <span class="card-meta">${p.style||''} · ${p.area||''} · ${p.location||''}</span>
+                    ${p.link ? '<span style="font-size:10px;color:var(--gold);letter-spacing:1px;margin-top:4px">🔗 VR全景浏览 →</span>' : ''}
+                </div>`}
             <div class="project-overlay">
                 <div class="cat">${p.category}${p.style ? ' · ' + p.style : ''}</div>
                 <h3>${p.title}</h3>
@@ -1037,8 +1045,12 @@ function renderProjectsFiltered(filtered) {
             ${p.featured ? '<div class="featured-badge">⭐ 精选</div>' : ''}
             ${p.images && p.images.length > 0
                 ? `<img src="images/${p.images[0]}" alt="${p.title}" loading="lazy">`
-                : `<div style="width:100%;height:100%;background:linear-gradient(135deg,var(--bg3) 0%,#1a1510 50%,var(--bg3) 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:var(--text3);font-size:13px">
-                    <span style="font-size:28px">🏛️</span>${p.category} · ${p.style || '待补充图片'}</div>`}
+                : `<div style="width:100%;height:100%;background:linear-gradient(145deg,var(--bg3) 0%,#1a1510 30%,#0f0f0f 70%,var(--bg3) 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px">
+                    <span class="card-icon">${p.category==='住宅设计'?'🏠':p.category==='商业空间'?'🏪':p.category==='酒店民宿'?'🏨':p.category==='办公空间'?'🏢':'📐'}</span>
+                    <span class="card-title">${p.title}</span>
+                    <span class="card-meta">${p.style||''} · ${p.area||''} · ${p.location||''}</span>
+                    ${p.link ? '<span style="font-size:10px;color:var(--gold);letter-spacing:1px;margin-top:4px">🔗 VR全景浏览 →</span>' : ''}
+                </div>`}
             <div class="project-overlay">
                 <div class="cat">${p.category}${p.style ? ' · ' + p.style : ''}</div>
                 <h3>${p.title}</h3>
@@ -1046,6 +1058,9 @@ function renderProjectsFiltered(filtered) {
             </div>
         </div>
     `).join('');
+}
+
+function filterProjects(cat) { currentFilter = cat; renderProjects(); }
 }
 
 function openDetail(id) {
