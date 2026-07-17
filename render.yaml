@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: cxp661-portfolio
+    runtime: node
+    buildCommand: npm install
+    startCommand: node server.js
+    plan: free
