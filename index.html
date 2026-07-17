@@ -298,8 +298,9 @@ section{padding:100px 60px}
 /* ==================== STYLE TAGS ==================== */
 .style-cloud{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:40px}
 .style-tag{padding:10px 24px;border:1px solid var(--border);color:var(--text2);font-size:12px;
-  letter-spacing:2px;transition:var(--transition);cursor:default;background:transparent}
-.style-tag:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-dim);transform:translateY(-2px)}
+  letter-spacing:2px;transition:var(--transition);cursor:pointer;background:transparent}
+.style-tag:hover,.style-tag.active{border-color:var(--gold);color:var(--gold);background:var(--gold-dim);transform:translateY(-2px)}
+.style-tag.active{border-color:var(--gold2);color:var(--white);background:var(--gold-dim)}
 
 /* ==================== TESTIMONIALS ==================== */
 .testimonials-section{background:linear-gradient(180deg,var(--bg) 0%,#0f0a05 100%);position:relative;overflow:hidden}
@@ -460,19 +461,20 @@ section{padding:100px 60px}
   <div class="section-tag fade-in">Style Spectrum</div>
   <h2 class="section-title fade-in" style="text-align:center">擅长风格</h2>
   <div class="ornament-divider fade-in"><div class="line"></div><div class="diamond"></div><div class="line"></div></div>
-  <div class="style-cloud fade-in">
-    <span class="style-tag">托斯卡纳</span>
-    <span class="style-tag">现代简约</span>
-    <span class="style-tag">新中式</span>
-    <span class="style-tag">轻法式</span>
-    <span class="style-tag">侘寂风</span>
-    <span class="style-tag">意式轻奢</span>
-    <span class="style-tag">日式禅意</span>
-    <span class="style-tag">北欧极简</span>
-    <span class="style-tag">美式复古</span>
-    <span class="style-tag">Art Deco</span>
-    <span class="style-tag">工业风</span>
-    <span class="style-tag">地中海</span>
+  <div class="style-cloud fade-in" id="styleCloud">
+    <span class="style-tag" onclick="filterByStyle('全部')">全部</span>
+    <span class="style-tag" onclick="filterByStyle('托斯卡纳风格')">托斯卡纳</span>
+    <span class="style-tag" onclick="filterByStyle('现代简约')">现代简约</span>
+    <span class="style-tag" onclick="filterByStyle('新中式')">新中式</span>
+    <span class="style-tag" onclick="filterByStyle('轻法式')">轻法式</span>
+    <span class="style-tag" onclick="filterByStyle('侘寂风')">侘寂风</span>
+    <span class="style-tag" onclick="filterByStyle('意式轻奢')">意式轻奢</span>
+    <span class="style-tag" onclick="filterByStyle('日式禅意')">日式禅意</span>
+    <span class="style-tag" onclick="filterByStyle('北欧极简')">北欧极简</span>
+    <span class="style-tag" onclick="filterByStyle('美式复古')">美式复古</span>
+    <span class="style-tag" onclick="filterByStyle('Art Deco')">Art Deco</span>
+    <span class="style-tag" onclick="filterByStyle('工业风')">工业风</span>
+    <span class="style-tag" onclick="filterByStyle('地中海')">地中海</span>
   </div>
 </section>
 
@@ -1005,6 +1007,46 @@ function renderProjects() {
 }
 
 function filterProjects(cat) { currentFilter = cat; renderProjects(); }
+
+function filterByStyle(style) {
+    // Update active tag
+    document.querySelectorAll('#styleCloud .style-tag').forEach(t => t.classList.remove('active'));
+    event.target.classList.add('active');
+    // Filter and scroll
+    currentFilter = '全部';
+    if (style === '全部') {
+        renderProjects();
+    } else {
+        const filtered = projects.filter(p => p.style === style);
+        renderProjectsFiltered(filtered);
+    }
+    // Scroll to portfolio
+    document.getElementById('works').scrollIntoView({ behavior: 'smooth' });
+}
+
+function renderProjectsFiltered(filtered) {
+    const grid = document.getElementById('projectGrid');
+    if (filtered.length === 0) {
+        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:80px;color:var(--text3);letter-spacing:2px">该风格暂无作品，敬请期待</div>';
+        return;
+    }
+    grid.innerHTML = filtered.map(p => `
+        <div class="project-card" onclick="openDetail('${p.id}')" style="position:relative">
+            <div class="ornament-corner tl"></div>
+            <div class="ornament-corner br"></div>
+            ${p.featured ? '<div class="featured-badge">⭐ 精选</div>' : ''}
+            ${p.images && p.images.length > 0
+                ? `<img src="images/${p.images[0]}" alt="${p.title}" loading="lazy">`
+                : `<div style="width:100%;height:100%;background:linear-gradient(135deg,var(--bg3) 0%,#1a1510 50%,var(--bg3) 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:var(--text3);font-size:13px">
+                    <span style="font-size:28px">🏛️</span>${p.category} · ${p.style || '待补充图片'}</div>`}
+            <div class="project-overlay">
+                <div class="cat">${p.category}${p.style ? ' · ' + p.style : ''}</div>
+                <h3>${p.title}</h3>
+                <div class="meta">${p.location || ''} ${p.area ? '· ' + p.area : ''} ${p.year ? '· ' + p.year : ''}</div>
+            </div>
+        </div>
+    `).join('');
+}
 
 function openDetail(id) {
     const p = projects.find(p => p.id === id);
